@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>登录</title>
+    <link rel="stylesheet" href="https://cdn.staticfile.org/twitter-bootstrap/3.3.7/css/bootstrap.min.css">
+    <script src="https://cdn.staticfile.org/jquery/2.1.1/jquery.min.js"></script>
+    <script src="https://cdn.staticfile.org/twitter-bootstrap/3.3.7/js/bootstrap.min.js"></script>
+
+    <style type="text/css">
+        .form-signln
+        {
+            max-width: 330px;
+            padding: 15px;
+            margin: 0 auto;
+        }
+        input{
+            margin-bottom: 3px;
+        }
+
+    </style>
+</head>
+<body>
+    <div class="container">
+        <form class="form-signln" role="form">
+            <h2 class="form-signln-heading">欢迎登录</h2>
+            <input type="text" class="form-control" placeholder="name" required>
+            <input type="text" class="form-control" placeholder="password" required>
+            <label class="check-box">
+                <input type="checkbox" value="remember-me">阅读用户协议
+            </label>
+
+            <button class="btn btn-lg btn-primary btn-block" type="submit">登录</button>
+        </form>
+        <button class="btn btn-lg  btn-link btn-block" type="submit" onclick="toRegister()">注册</button>
+    </div>
+
+    <script>
+        var toRegister = function () {
+            window.location.href = "register.html"
+        }
+    </script>
+</body>
+</html>

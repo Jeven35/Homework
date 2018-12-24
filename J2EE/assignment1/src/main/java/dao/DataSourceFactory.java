@@ -10,13 +10,13 @@ import java.sql.SQLException;
 /**
  * Created by jeven on 2018/12/24.
  */
-public class MyDataSource {
+public class DataSourceFactory {
 
     private static DataSource source;
 
     private static void init() throws NamingException {
         Context context = new InitialContext();
-        source = (DataSource) context.lookup("java:comp/env/jdbc/mysql");
+        source = (DataSource) context.lookup("java:comp/env/jdbc/homework");
     }
 
     Connection getConnection() {

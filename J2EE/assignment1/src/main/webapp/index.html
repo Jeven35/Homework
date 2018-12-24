@@ -1,10 +1,57 @@
 <!DOCTYPE html>
 <html lang="en">
+<!--<link rel="stylesheet" type="text/css" href="css/mycss.css">-->
+
+
 <head>
     <meta charset="UTF-8">
-    <title>欢迎你啊</title>
+    <title>首页</title>
+    <link rel="stylesheet" href="https://cdn.staticfile.org/twitter-bootstrap/3.3.7/css/bootstrap.min.css">
+    <script src="https://cdn.staticfile.org/jquery/2.1.1/jquery.min.js"></script>
+    <script src="https://cdn.staticfile.org/twitter-bootstrap/3.3.7/js/bootstrap.min.js"></script>
+
+
+    <!--一些简单的css-->
+    <style>
+        body
+        {
+            background-image:url('img/background.jpg' );
+            background-repeat:no-repeat;
+            background-position:right top;
+            margin-right:200px;
+        }
+    </style>
 </head>
+<br>
+<h2> &ensp;这是主页</h2>
+<br>
+<br>
+<p class="lead"> &ensp;这个贼炫酷的界面是主页</p>
+<p class="lead"> &ensp;点击下面的按钮进入网站</p>
+<br>
+<br>
+
 <body>
-hello world;
+
+&ensp;&ensp;<button type="button" class="btn btn-success" onclick="isLogin()">点我点我</button>
+
+<script>
+    var isLogin = function () {
+        $.ajax({
+            async: false,
+            cache: false,
+            type: 'GET',
+            url: '/login',
+
+            error: function() {
+                alert('login请求失败');
+            },
+            success: function(data) {
+                console.log("login请求成功");
+                window.location.href = "./pages/login.html"
+            }
+        });
+    }
+</script>
 </body>
 </html>

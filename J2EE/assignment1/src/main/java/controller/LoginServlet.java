@@ -1,5 +1,8 @@
 package controller;
 
+import dao.UserDao;
+import po.User;
+
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
@@ -18,8 +21,13 @@ public class LoginServlet extends HttpServlet {
     }
 
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-        response.setContentType("text/html");
-        PrintWriter out = response.getWriter();
-        out.println("This is a new servlet page2");
+        UserDao userDao = new UserDao();
+        User user = userDao.getUser();
+        System.out.println(user);
+//        response.setContentType("text/html");
+//        PrintWriter out = response.getWriter();
+//        out.println("This is a new servlet page2");
+//        response.sendRedirect("pages/login.html");
+        request.getRequestDispatcher("/pages/login.html").forward(request,response);
     }
 }
