@@ -11,11 +11,22 @@
 </head>
 <body>
     <div ng-app="myApp" ng-controller="myCtrl">
-        <table>
+        <table  class="table table-hover">
+            <thead>
+            <tr>
+                <th>商品名称</th>
+                <th>单价</th>
+                <th>购物车</th>
+            </tr>
+            </thead>
+
+            <tbody>
             <tr ng-repeat="x in names">
                 <td>{{ x.name }}</td>
                 <td>{{ x.price }}</td>
+                <td><a>加入购物车</a></td>
             </tr>
+            </tbody>
         </table>
     </div>
     <script>
@@ -32,11 +43,15 @@
                 },
                 success: function(data) {
                     console.log(data);
+
+                    var goods = JSON.parse(data); //由JSON字符串转换为JSON对象
+                    console.log(goods);
                     alert("商品列表请求成功");
                     var len = data.length;
-                    var temp = data[0];
+                    console.log(len);
+                    var temp = goods[0];
                     console.log(temp);
-                    $scope.names = data;
+                    $scope.names = goods;
                 }
             });
         });
