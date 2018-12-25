@@ -48,7 +48,13 @@
             },
             success: function(data) {
                 console.log("login请求成功");
-                window.location.href = "./pages/login.html"
+                alert(data);
+                if (data == "false"){
+                    window.location.href = "/pages/login.html";
+                }
+                else{
+                   window.location.href = "/pages/market.html"
+                }
             }
         });
     }

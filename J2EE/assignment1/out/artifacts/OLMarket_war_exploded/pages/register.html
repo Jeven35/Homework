@@ -14,6 +14,12 @@
             padding: 15px;
             margin: 0 auto;
         }
+        .btn-signln
+        {
+            max-width: 300px;
+            padding: 15px;
+            margin: 0 auto;
+        }
         input{
             margin-bottom: 3px;
         }
@@ -24,17 +30,50 @@
 <div class="container">
     <form class="form-signln" role="form">
         <h2 class="form-signln-heading">这里是注册栏~</h2>
-        <input type="text" class="form-control" placeholder="请输入你的名字" required>
-        <input type="text" class="form-control" placeholder="请设置密码" required>
-        <input type="text" class="form-control" placeholder="请确认密码" required>
+        <input type="text" class="form-control" placeholder="请输入你的名字" required id="name">
+        <br>
+        <input type="password" class="form-control" placeholder="请设置密码" required id="password1">
+        <br>
+        <input type="password" class="form-control" placeholder="请确认密码" required id="password2">
+        <br>
 
         <label class="check-box">
             <input type="checkbox" value="remember-me">阅读用户协议
         </label>
-
-        <button class="btn btn-lg btn-primary btn-block" type="submit">确认注册</button>
     </form>
+    <button class="btn btn-primary btn-block btn-signln" type="submit" onclick="rigister()">确认注册</button>
 
+    <script>
+        var rigister = function () {
+            var name = $("#name").val();
+            var password1 = $("#password1").val();
+            var password2 = $("#password2").val();
+            if (password1 != password2){
+                alert("请确认密码");
+            }
+            else{
+                $.ajax({
+                    url:"/register",
+                    type:"post",
+                    data: {username:name,
+                        password:password1},
+                    success:function(data){
+                        console.log(data);
+                        if (data == "true"){
+                            alert("注册成功！")
+                            window.location.href = "login.html";
+                        }
+                        else{
+                            alert(data);
+                        }
+                    },
+                    error:function(e){
+                        alert("连接错误！！");
+                    }
+                });
+            }
+        }
+    </script>
 </div>
 </body>
 </html>

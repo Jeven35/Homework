@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>购物</title>
+    <link rel="stylesheet" href="https://cdn.staticfile.org/twitter-bootstrap/3.3.7/css/bootstrap.min.css">
+    <script src="https://cdn.staticfile.org/jquery/2.1.1/jquery.min.js"></script>
+    <script src="https://cdn.staticfile.org/twitter-bootstrap/3.3.7/js/bootstrap.min.js"></script>
+    <script src="https://cdn.staticfile.org/angular.js/1.6.3/angular.min.js"></script>
+
+</head>
+<body>
+    <div ng-app="myApp" ng-controller="myCtrl">
+        <table>
+            <tr ng-repeat="x in names">
+                <td>{{ x.name }}</td>
+                <td>{{ x.price }}</td>
+            </tr>
+        </table>
+    </div>
+    <script>
+        var app = angular.module('myApp', []);
+        app.controller('myCtrl', function($scope) {
+            $.ajax({
+                async: false,
+                cache: false,
+                type: 'GET',
+                url: '/market',
+
+                error: function() {
+                    alert('获得列表请求失败');
+                },
+                success: function(data) {
+                    console.log(data);
+                    alert("商品列表请求成功");
+                    var len = data.length;
+                    var temp = data[0];
+                    console.log(temp);
+                    $scope.names = data;
+                }
+            });
+        });
+    </script>
+</body>
+</html>

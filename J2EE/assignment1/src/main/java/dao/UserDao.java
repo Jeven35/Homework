@@ -17,24 +17,46 @@ public class UserDao {
         dataSourceFactory = new DataSourceFactory();
     }
 
-    public User getUser(){
+    public boolean login(String username,String password){
         Connection connection = null;
         PreparedStatement preparedStatement = null;
         ResultSet resultSet = null;
         try {
             connection = dataSourceFactory.getConnection();
-            preparedStatement = connection.prepareStatement( "select * from users");
+            preparedStatement = connection.prepareStatement( "select * from users where name = ? and password = ?");
+            preparedStatement.setString(1,username);
+            preparedStatement.setString(2,password);
             resultSet = preparedStatement.executeQuery();
             User user = null;
             if (resultSet.next()){
                 user = new User(resultSet.getString("name"),resultSet.getString("password"));
             }
-            return user;
+            if (user != null){
+                return true;
+            }
+            else{
+                return false;
+            }
         } catch (SQLException e) {
             e.printStackTrace();
-            return null;
+            return false;
         }
     }
 
+    public void register(String username,String password){
+        Connection connection = null;
+        PreparedStatement preparedStatement = null;
+        ResultSet resultSet = null;
+        try {
+            connection = dataSourceFactory.getConnection();
+            String sql = "insert into users value(?,?)";
+            preparedStatement = connection.prepareStatement(sql);
+            preparedStatement.setString(1,username);
+            preparedStatement.setString(2,password);
+            int result = preparedStatement.executeUpdate();
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+    }
 
 }
