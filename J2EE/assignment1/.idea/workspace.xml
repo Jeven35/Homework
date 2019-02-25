@@ -6,19 +6,7 @@
     </artifacts-to-build>
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="d5bc6c4f-3772-4fbc-a4dd-58441cfb1a42" name="Default" comment="">
-      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/out/artifacts/OLMarket_war_exploded/WEB-INF/classes/controller/LoginServlet.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/artifacts/OLMarket_war_exploded/WEB-INF/classes/controller/LoginServlet.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/out/artifacts/OLMarket_war_exploded/WEB-INF/classes/controller/marketServlet.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/artifacts/OLMarket_war_exploded/WEB-INF/classes/controller/marketServlet.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/out/artifacts/OLMarket_war_exploded/pages/market.html" beforeDir="false" afterPath="$PROJECT_DIR$/out/artifacts/OLMarket_war_exploded/pages/market.html" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/controller/LoginServlet.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/controller/LoginServlet.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/controller/marketServlet.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/controller/marketServlet.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/webapp/index.html" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/webapp/index.html" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/webapp/pages/market.html" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/webapp/pages/market.html" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/controller/LoginServlet.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/controller/LoginServlet.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/controller/marketServlet.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/controller/marketServlet.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/web/WEB-INF/web.xml" beforeDir="false" />
-    </list>
+    <list default="true" id="d5bc6c4f-3772-4fbc-a4dd-58441cfb1a42" name="Default" comment="" />
     <ignored path="$PROJECT_DIR$/out/" />
     <ignored path="$PROJECT_DIR$/target/" />
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
@@ -86,7 +74,7 @@
       <file leaf-file-name="marketServlet.java" pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/src/main/java/controller/marketServlet.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="-25">
+            <state relative-caret-position="232">
               <caret line="19" column="13" selection-start-line="19" selection-start-column="13" selection-end-line="19" selection-end-column="13" />
             </state>
           </provider>
@@ -183,7 +171,7 @@
   <component name="NodePackageJsonFileManager">
     <packageJsonPaths />
   </component>
-  <component name="ProjectFrameBounds" extendedState="7">
+  <component name="ProjectFrameBounds" extendedState="6">
     <option name="x" value="50" />
     <option name="y" value="15" />
     <option name="width" value="1400" />
@@ -418,12 +406,12 @@
       <workItem from="1550378731280" duration="474000" />
       <workItem from="1550458997739" duration="5137000" />
       <workItem from="1551068235332" duration="885000" />
-      <workItem from="1551093130244" duration="623000" />
+      <workItem from="1551093130244" duration="1623000" />
     </task>
     <servers />
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="109493000" />
+    <option name="totallyTimeSpent" value="110493000" />
   </component>
   <component name="TodoView">
     <todo-panel id="selected-file">
@@ -435,7 +423,8 @@
     </todo-panel>
   </component>
   <component name="ToolWindowManager">
-    <frame x="-7" y="-7" width="1550" height="838" extended-state="7" />
+    <frame x="-7" y="-7" width="1550" height="838" extended-state="6" />
+    <editor active="true" />
     <layout>
       <window_info anchor="right" id="Palette" order="3" />
       <window_info anchor="bottom" id="TODO" order="6" weight="0.32914925" />
@@ -755,7 +744,7 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/src/main/java/controller/marketServlet.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="-25">
+        <state relative-caret-position="232">
           <caret line="19" column="13" selection-start-line="19" selection-start-column="13" selection-end-line="19" selection-end-column="13" />
         </state>
       </provider>
