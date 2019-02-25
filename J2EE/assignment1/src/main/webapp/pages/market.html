@@ -14,17 +14,19 @@
         <table  class="table table-hover">
             <thead>
             <tr>
+                <th>编号</th>
                 <th>商品名称</th>
-                <th>单价</th>
-                <th>购物车</th>
+                <th>单价(元)</th>
+                <th><button class="btn btn-link" ng-click = buyingCar() >购物车</button></th>
             </tr>
             </thead>
 
             <tbody>
             <tr ng-repeat="x in names">
+                <td>{{ $index + 1 }}</td>
                 <td>{{ x.name }}</td>
                 <td>{{ x.price }}</td>
-                <td><a>加入购物车</a></td>
+                <td><button class="btn btn-link" ng-click = buyingGood($index+1) >加入购物车</button></td>
             </tr>
             </tbody>
         </table>
@@ -47,11 +49,14 @@
                     var goods = JSON.parse(data); //由JSON字符串转换为JSON对象
                     console.log(goods);
                     alert("商品列表请求成功");
-                    var len = data.length;
-                    console.log(len);
-                    var temp = goods[0];
-                    console.log(temp);
                     $scope.names = goods;
+                    $scope.buyingGood = function (index) {
+                        console.log(index);
+                        alert("您将一件宝贝加入购物车~")
+                    }
+                    $scope.buyingCar = function () {
+                        alert("马上去购物车");
+                    }
                 }
             });
         });

@@ -2,7 +2,6 @@ package controller;
 
 import dao.ProductDao;
 import net.sf.json.JSONArray;
-import net.sf.json.JSONObject;
 import po.Good;
 
 import javax.servlet.ServletException;

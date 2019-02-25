@@ -5,10 +5,7 @@ import po.User;
 
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
-import javax.servlet.http.HttpServlet;
-import javax.servlet.http.HttpServletRequest;
-import javax.servlet.http.HttpServletResponse;
-import javax.servlet.http.HttpSession;
+import javax.servlet.http.*;
 import java.io.IOException;
 import java.io.PrintWriter;
 
@@ -37,14 +34,16 @@ public class LoginServlet extends HttpServlet {
     }
 
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+        response.setContentType("text/html;charset=utf-8");
+        //  参数false表示是否产生新session
         HttpSession session=request.getSession(false);
-        PrintWriter out = response.getWriter();
         if (session == null){
-            out.print(false);
+            response.sendRedirect("/pages/login.html");//重定向
         }
         else{
-            out.print(true);
+             response.sendRedirect("/pages/market.html");//重定向
         }
-        out.close();
+
+
     }
 }
