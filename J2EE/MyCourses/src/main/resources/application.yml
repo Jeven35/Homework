@@ -1,0 +1,22 @@
+spring:
+  mvc:
+    view:
+      prefix: classpath:/templates/
+      suffix: .html
+  datasource:
+    driver-class-name: com.mysql.cj.jdbc.Driver
+    username: root
+    password: 123456
+    url: jdbc:mysql://localhost:3306/mycourses?characterEncoding=UTF-8&useSSL=true&serverTimezone=GMT%2B8
+  jpa:
+    database: mysql
+    show-sql: true
+    hibernate:
+      ddl-auto: update
+      naming:
+        implicit-strategy: org.springframework.boot.orm.jpa.hibernate.SpringImplicitNamingStrategy
+    properties:
+      hibernate:
+        dialect: org.hibernate.dialect.MySQL5InnoDBDialect
+        enable_lazy_load_no_trans: true
+    open-in-view: true
