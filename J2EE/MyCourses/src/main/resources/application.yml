@@ -20,3 +20,8 @@ spring:
         dialect: org.hibernate.dialect.MySQL5InnoDBDialect
         enable_lazy_load_no_trans: true
     open-in-view: true
+
+#server:
+#  servlet:
+#    session:
+#      timeout: 60

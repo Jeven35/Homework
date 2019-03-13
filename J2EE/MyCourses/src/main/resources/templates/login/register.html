@@ -27,8 +27,14 @@
                     <input type="hidden" name="_csrf" value="9IAtUxV2CatyxHiK2LxzOsT6wtBE6h8BpzOmk="/>
                     <div class="control-group">
                         <div class="controls">
+                            <label for="userEmail" class="control-label fa fa-envelope"></label>
+                            <input id="userEmail" type="email" name="email" placeholder="请输入你的邮箱" tabindex="1"  autofocus="autofocus" class="form-control input-medium" />
+                        </div>
+                    </div>
+                    <div class="control-group">
+                        <div class="controls">
                             <label for="userName" class="control-label fa fa-envelope"></label>
-                            <input id="userName" type="text" name="email" placeholder="请输入你的邮箱" tabindex="1" autofocus="autofocus" class="form-control input-medium" />
+                            <input id="userName" type="text" name="name" placeholder="请输入你的名字" tabindex="1" class="form-control input-medium" />
                         </div>
                     </div>
                     <div class="control-group">
@@ -63,24 +69,32 @@
             }).blur(function() {
                 $('#owl-login').removeClass('password');
             });
-            //简单登录操作
+            //注册
             $("#doLogin").click(function (e) {
-                alert("你已经写好了登录界面！");
+                var data = {
+                    "email": $("#userEmail").val(),
+                    "password":  $("#password").val(),
+                    "name": $("#userName").val()
+                };
+                var dataStr = JSON.stringify(data);
+                console.log(dataStr);
+                console.log(data);
                 $.ajax({
                     type : "POST",
-                    url : "/login",
-                    data : {
-                        "userName" : $("#userName").val(),
-                        "password" : $("#password").val()
-                    },
+                    url : "/register",
+                    data :dataStr,
                     dataType : "json",
+                    contentType: "application/json;charset=utf-8", // 因为上面是JSON数据
+                    headers: {
+                        // Accept: "application/xml",
+                        Accept: "application/json",
+                    },
                     success : function(data) {
-                        if (data.result == "1") {
-                            window.location.href ="/learn";
-                        } else {
-                            alert("账号密码不能为空！");
-                        }
-                    }
+                        console.log(data);
+                    },
+                    error: function (data, textStatus, errorThrown) {
+                        console.log(data);
+                    },
                 });
             });
         });

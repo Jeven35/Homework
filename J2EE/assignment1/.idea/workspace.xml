@@ -7,7 +7,22 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="d5bc6c4f-3772-4fbc-a4dd-58441cfb1a42" name="Default" comment="">
+      <change afterPath="$PROJECT_DIR$/../MyCourses/src/main/java/com/jeven/mycourses/bl/email/MD5Util.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../MyCourses/src/main/java/com/jeven/mycourses/bl/email/RegisterValidateService.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../MyCourses/src/main/java/com/jeven/mycourses/bl/email/SendEmail.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../MyCourses/src/main/java/com/jeven/mycourses/controller/TestController.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../MyCourses/src/main/java/com/jeven/mycourses/controller/ToolController.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../MyCourses/src/main/resources/static/css/layui.css" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../MyCourses/src/main/resources/static/img/logo.jpg" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../MyCourses/src/main/resources/static/js/layui.js" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../MyCourses/src/main/resources/templates/teacher/centerT.html" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../MyCourses/src/main/resources/templates/teacher/test2.html" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../MyCourses/src/main/resources/templates/tool/nav.html" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/../MyCourses/pom.xml" beforeDir="false" afterPath="$PROJECT_DIR$/../MyCourses/pom.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../MyCourses/src/main/java/com/jeven/mycourses/controller/LoginController.java" beforeDir="false" afterPath="$PROJECT_DIR$/../MyCourses/src/main/java/com/jeven/mycourses/controller/LoginController.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../MyCourses/src/main/java/com/jeven/mycourses/domain/User.java" beforeDir="false" afterPath="$PROJECT_DIR$/../MyCourses/src/main/java/com/jeven/mycourses/domain/User.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../MyCourses/src/main/resources/templates/login/login.html" beforeDir="false" afterPath="$PROJECT_DIR$/../MyCourses/src/main/resources/templates/login/login.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../MyCourses/src/main/resources/templates/login/register.html" beforeDir="false" afterPath="$PROJECT_DIR$/../MyCourses/src/main/resources/templates/login/register.html" afterDir="false" />
     </list>
     <ignored path="$PROJECT_DIR$/out/" />
     <ignored path="$PROJECT_DIR$/target/" />
@@ -82,20 +97,25 @@
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="pom.xml" pinned="false" current-in-tab="true">
+      <file leaf-file-name="pom.xml" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/pom.xml">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="1624">
+            <state relative-caret-position="634">
               <caret line="56" column="13" selection-start-line="56" selection-start-column="13" selection-end-line="56" selection-end-column="13" />
             </state>
           </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="background.jpg" pinned="false" current-in-tab="true">
+        <entry file="file://$PROJECT_DIR$/src/main/webapp/img/background.jpg">
+          <provider selected="true" editor-type-id="images" />
         </entry>
       </file>
       <file leaf-file-name="OLMarket.iml" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/OLMarket.iml">
           <provider selected="true" editor-type-id="text-editor">
             <state relative-caret-position="174">
-              <caret line="6" column="9" lean-forward="true" selection-start-line="6" selection-start-column="9" selection-end-line="6" selection-end-column="9" />
+              <caret line="6" column="9" selection-start-line="6" selection-start-column="9" selection-end-line="6" selection-end-column="9" />
             </state>
           </provider>
         </entry>
@@ -205,6 +225,7 @@
       <foldersAlwaysOnTop value="true" />
     </navigator>
     <panes>
+      <pane id="PackagesPane" />
       <pane id="ProjectPane">
         <subPane>
           <expand>
@@ -235,13 +256,23 @@
               <item name="java" type="462c0819:PsiDirectoryNode" />
               <item name="po" type="462c0819:PsiDirectoryNode" />
             </path>
+            <path>
+              <item name="OLMarket" type="b2602c69:ProjectViewProjectNode" />
+              <item name="main" type="462c0819:PsiDirectoryNode" />
+              <item name="webapp" type="462c0819:PsiDirectoryNode" />
+            </path>
+            <path>
+              <item name="OLMarket" type="b2602c69:ProjectViewProjectNode" />
+              <item name="main" type="462c0819:PsiDirectoryNode" />
+              <item name="webapp" type="462c0819:PsiDirectoryNode" />
+              <item name="img" type="462c0819:PsiDirectoryNode" />
+            </path>
           </expand>
           <select />
         </subPane>
       </pane>
-      <pane id="AndroidView" />
       <pane id="Scope" />
-      <pane id="PackagesPane" />
+      <pane id="AndroidView" />
     </panes>
   </component>
   <component name="PropertiesComponent">
@@ -428,11 +459,12 @@
       <workItem from="1551068235332" duration="885000" />
       <workItem from="1551093130244" duration="1623000" />
       <workItem from="1551260753073" duration="140000" />
+      <workItem from="1551960831882" duration="621000" />
     </task>
     <servers />
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="110633000" />
+    <option name="totallyTimeSpent" value="111254000" />
   </component>
   <component name="TodoView">
     <todo-panel id="selected-file">
@@ -444,7 +476,7 @@
     </todo-panel>
   </component>
   <component name="ToolWindowManager">
-    <frame x="-7" y="-7" width="1550" height="838" extended-state="6" />
+    <frame x="-7" y="-7" width="1550" height="878" extended-state="6" />
     <editor active="true" />
     <layout>
       <window_info anchor="right" id="Palette" order="3" />
@@ -462,8 +494,8 @@
       <window_info anchor="bottom" id="Terminal" order="7" weight="0.32914925" />
       <window_info id="Capture Tool" order="2" />
       <window_info id="Designer" order="2" />
-      <window_info active="true" content_ui="combo" id="Project" order="0" sideWeight="0.89807975" visible="true" weight="0.26407507" />
-      <window_info id="Web" order="2" sideWeight="0.10192024" side_tool="true" visible="true" weight="0.26407507" />
+      <window_info active="true" content_ui="combo" id="Project" order="0" sideWeight="0.8960864" visible="true" weight="0.26742628" />
+      <window_info id="Web" order="2" sideWeight="0.10391363" side_tool="true" visible="true" weight="0.26742628" />
       <window_info anchor="right" id="Database" order="3" weight="0.3297587" />
       <window_info id="Structure" order="1" sideWeight="0.5006974" side_tool="true" weight="0.2533512" />
       <window_info anchor="right" id="Ant Build" order="1" weight="0.25" />
@@ -623,9 +655,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/webapp/img/background.jpg">
-      <provider selected="true" editor-type-id="images" />
-    </entry>
     <entry file="jar://$MAVEN_REPOSITORY$/javax/servlet/javax.servlet-api/3.1.0/javax.servlet-api-3.1.0.jar!/javax/servlet/http/HttpServlet.class">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="82">
@@ -759,16 +788,19 @@
     <entry file="file://$PROJECT_DIR$/OLMarket.iml">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="174">
-          <caret line="6" column="9" lean-forward="true" selection-start-line="6" selection-start-column="9" selection-end-line="6" selection-end-column="9" />
+          <caret line="6" column="9" selection-start-line="6" selection-start-column="9" selection-end-line="6" selection-end-column="9" />
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/pom.xml">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="1624">
+        <state relative-caret-position="634">
           <caret line="56" column="13" selection-start-line="56" selection-start-column="13" selection-end-line="56" selection-end-column="13" />
         </state>
       </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/webapp/img/background.jpg">
+      <provider selected="true" editor-type-id="images" />
     </entry>
   </component>
   <component name="masterDetails">

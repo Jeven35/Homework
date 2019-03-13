@@ -1,0 +1,81 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>教师信息</title>
+    <link rel="stylesheet" href="https://cdn.staticfile.org/twitter-bootstrap/3.3.7/css/bootstrap.min.css">
+    <script src="https://cdn.staticfile.org/jquery/2.1.1/jquery.min.js"></script>
+    <script src="https://cdn.staticfile.org/twitter-bootstrap/3.3.7/js/bootstrap.min.js"></script>
+</head>
+<body>
+
+
+
+<div>
+    <span style="font-size:19px">更多资料</span>
+
+    <button class="btn btn-info" type="button" style="float:right" ng-click="editOrSave()">
+        <span ng-show=!InfoEditable>编辑</span>
+        <span ng-show=InfoEditable>保存</span>
+    </button>
+</div>
+
+<hr />
+<table class="workerInfo" border="0" cellpadding="0" cellspacing="10px" style="width: 500px; border:none">
+    <tbody>
+    <tr>
+        <th style="">姓名
+        </th>
+        <td style="">
+            <div ng-show=!InfoEditable> {{userInfo["name"]}} </div>
+            <div ng-show=InfoEditable><input class="input-medium search-query" type="text" ng-model='userInfo["name"]' /> </div>
+        </td>
+
+    </tr>
+    <tr>
+        <th style="">性别
+        </th>
+        <td>
+            <div ng-show=!InfoEditable> {{userInfo["sex"]}} </div>
+            <div ng-show=InfoEditable>
+                <select placeholder="请选择性别" ng-model='userInfo["sex"]'>
+                    <option value="男">男</option>
+                    <option value="女">女</option>
+                </select>
+
+            </div>
+        </td>
+
+    </tr>
+    <tr>
+        <th style="">手机号码
+        </th>
+        <td style="">
+            <div ng-show=!InfoEditable> {{userInfo["phoneNumber"]}} </div>
+            <div ng-show=InfoEditable>
+
+                <input class="input-medium search-query" onkeyup="checkPhoneNumber(this)" type="text" ng-model='userInfo["phoneNumber"]' />
+
+            </div>
+        </td>
+
+    </tr>
+    <tr>
+        <th style="">个人简介
+        </th>
+        <td style="">
+
+            <textarea id="descriptionTextArea" type="text" class="form-control ng-pristine ng-valid ng-valid-number" placeholder="个人简介" ng-readonly="!InfoEditable" readonly="readonly" style="resize:none;" ng-model='userInfo["description"]'></textarea>
+
+            <!--<div ng-show=!InfoEditable>  </div>
+        <div ng-show=InfoEditable>
+
+        </div>-->
+        </td>
+
+    </tr>
+    </tbody>
+</table>
+
+</body>
+</html>
