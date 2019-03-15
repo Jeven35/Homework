@@ -2,13 +2,11 @@
 <html ng-app="myApp">
 
 <head>
-
-    <title>用户中心 </title>
+    <title>课程信息</title>
 
     <meta charset="UTF-8">
 
     <link href="https://cdn.bootcss.com/bootstrap/3.3.7/css/bootstrap.css" rel="stylesheet">
-    <!--<link href="css/myCss.css" rel="stylesheet">-->
 
     <script src="http://cdn.static.runoob.com/libs/jquery/2.1.1/jquery.min.js"></script>
     <script src="http://cdn.static.runoob.com/libs/angular.js/1.4.6/angular.min.js"></script>
@@ -16,17 +14,16 @@
     <script src="http://cdn.static.runoob.com/libs/bootstrap/3.3.7/js/bootstrap.js"></script>
     <script src="http://apps.bdimg.com/libs/jquery/2.1.1/jquery.min.js"></script>
     <!--layIM-->
-    <link rel="stylesheet" href="css/layui.css" media="all">
-    <script src="js/layui.js"></script>
+    <!--<link rel="stylesheet" href="css/layui.css" media="all">-->
+    <!--<script src="js/layui.js"></script>-->
 
-    <script SRC="js/jsManager/MainJSinclude.js"></script>
+    <script SRC="/js/jsManager/MainJSinclude.js"></script>
 
-    <!--<link rel="stylesheet" type="text/css" href="css/myCss.css">-->
-    <link rel="stylesheet" href="css/animation/loading.css"> ,
+    <link rel="stylesheet" href="/css/animation/loading.css"> ,
     <link rel="stylesheet" href="http://cdn.bootcss.com/font-awesome/4.4.0/css/font-awesome.min.css"> ,
 
-    <link rel="stylesheet" type="text/css" href="css/leftNav/default.css">
-    <link rel="stylesheet" href="css/leftNav/bootstrap-vertical-menu.css">
+    <link rel="stylesheet" type="text/css" href="/css/leftNav/default.css">
+    <link rel="stylesheet" href="/css/leftNav/bootstrap-vertical-menu.css">
 
     <style>
         html {
@@ -71,27 +68,21 @@
     </style>
 </head>
 <div style="position: fixed; left: 0;top: 0;z-index:900;min-width:1000px;max-width:1900px;width: 100%;">
-    <div ng-include="'/nav'" style=""></div>
+    <div ng-include="'/nav-teacher'" style=""></div>
 </div>
 
-<nav class="navbar navbar-vertical-left" style="min-width: 160 ">
+<nav class="navbar navbar-vertical-left" style="min-width: 160px ">
     <ul class="nav navbar-nav" style="margin-top:50px ;">
-        <li onclick="jumpIframe('tInfoPage')">
+        <li onclick="jumpIframe('/teacher/courseInfo')">
             <a href>
                 <i class="fa fa-fw fa-lg fa-home"></i>
-                <span>个人信息</span>
+                <span>课程信息</span>
             </a>
         </li>
-        <li onclick="jumpIframe('tInfoPage')">
-            <a href>
-                <i class="fa fa-fw fa-lg fa-comments-o"></i>
-                <span>创建课程</span>
-            </a>
-        </li>
-        <li onclick="jumpIframe('tInfoPage')">
+        <li onclick="jumpIframe('/teacher/courseInfo')">
             <a href>
                 <i class="fa fa-fw fa-lg fa-desktop"></i>
-                <span>管理课程</span>
+                <span>课程论坛</span>
             </a>
         </li>
 
@@ -102,15 +93,12 @@
 
 <div class="mainDiv">
 
-    <iframe class="CenterPagIframe" src="/tInfoPage" width=100% id="iframepage" name="iframepage" frameBorder=0 onLoad="loadIframe()"></iframe>
+    <iframe class="CenterPagIframe" src="/teacher/courseInfo" width=100% id="iframepage" name="iframepage" frameBorder=0 onLoad="loadIframe()"></iframe>
 
     <div id="loading">
         <div class="spinner">
             <div class="rect1"></div>
             <div class="rect2"></div>
-            <div class="rect3"></div>
-            <div class="rect4"></div>
-            <div class="rect5"></div>
         </div>
     </div>
 
@@ -137,22 +125,10 @@
         document.getElementById("loading").style.display = "block";
         document.getElementById("iframepage").style.display = "none";
         //加载
-
         var ifm = document.getElementById("iframepage");
         ifm.src = page;
-        //			ifm.reload();
     }
 
-    function testHW(page) {
-        //加载动画
-        document.getElementById("loading").style.display = "block";
-        document.getElementById("iframepage").style.display = "none";
-        //加载
-
-        var ifm = document.getElementById("iframepage");
-        ifm.src = page;
-        //			ifm.reload();
-    }
 </script>
 <script>
     var app = angular.module('myApp', []);

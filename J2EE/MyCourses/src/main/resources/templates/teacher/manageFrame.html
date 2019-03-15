@@ -3,7 +3,7 @@
 
 <head>
 
-    <title>创建课程</title>
+    <title>管理课程</title>
 
     <meta charset="UTF-8">
 
@@ -12,17 +12,14 @@
     <script src="http://cdn.static.runoob.com/libs/jquery/2.1.1/jquery.min.js"></script>
     <script src="http://cdn.static.runoob.com/libs/angular.js/1.4.6/angular.min.js"></script>
     <script src="http://cdn.static.runoob.com/libs/bootstrap/3.3.7/js/bootstrap.min.js"></script>
-    <!--layIM-->
-    <link rel="stylesheet" href="css/layui.css" media="all">
-    <script src="js/layui.js"></script>
 
-    <script SRC="js/jsManager/MainJSinclude.js"></script>
+    <script SRC="/js/jsManager/MainJSinclude.js"></script>
 
-    <link rel="stylesheet" href="css/animation/loading.css"> ,
+    <link rel="stylesheet" href="/css/animation/loading.css"> ,
     <link rel="stylesheet" href="http://cdn.bootcss.com/font-awesome/4.4.0/css/font-awesome.min.css"> ,
 
-    <link rel="stylesheet" type="text/css" href="css/leftNav/default.css">
-    <link rel="stylesheet" href="css/leftNav/bootstrap-vertical-menu.css">
+    <link rel="stylesheet" type="text/css" href="/css/leftNav/default.css">
+    <link rel="stylesheet" href="/css/leftNav/bootstrap-vertical-menu.css">
 
     <style>
         html {
@@ -72,16 +69,16 @@
 
 <nav class="navbar navbar-vertical-left" style="min-width: 160px">
     <ul class="nav navbar-nav" style="margin-top:50px ;">
-        <li onclick="jumpIframe('tInfoPage')">
+        <li onclick="jumpIframe('/teacher/Manage')">
             <a href>
                 <i class="fa fa-fw fa-lg fa-desktop"></i>
-                <span>创建课程</span>
+                <span>已发布</span>
             </a>
         </li>
-        <li onclick="jumpIframe('tInfoPage')">
+        <li onclick="jumpIframe('/teacher/Manage')">
             <a href>
                 <i class="fa fa-fw fa-lg fa-desktop"></i>
-                <span>发布课程</span>
+                <span>待审核</span>
             </a>
         </li>
 
@@ -92,15 +89,12 @@
 
 <div class="mainDiv">
 
-    <iframe class="CenterPagIframe" src="/tInfoPage" width=100% id="iframepage" name="iframepage" frameBorder=0 onLoad="loadIframe()"></iframe>
+    <iframe class="CenterPagIframe" src="/teacher/Manage" width=100% id="iframepage" name="iframepage" frameBorder=0 onLoad="loadIframe()"></iframe>
 
     <div id="loading">
         <div class="spinner">
             <div class="rect1"></div>
             <div class="rect2"></div>
-            <div class="rect3"></div>
-            <div class="rect4"></div>
-            <div class="rect5"></div>
         </div>
     </div>
 

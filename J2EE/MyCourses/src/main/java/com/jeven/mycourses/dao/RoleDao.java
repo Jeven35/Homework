@@ -4,12 +4,16 @@ import com.jeven.mycourses.domain.Role;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.JpaSpecificationExecutor;
 import org.springframework.data.jpa.repository.Query;
+import org.springframework.stereotype.Repository;
 
+import javax.persistence.Table;
 import java.util.List;
 
 /**
  * Created by jeven on 2019/3/12.
  */
+@Repository
+@Table(name = "role")
 public interface RoleDao extends JpaRepository<Role, Integer>,
         JpaSpecificationExecutor<Role> {
     //自定义sql语句并且开启本地sql

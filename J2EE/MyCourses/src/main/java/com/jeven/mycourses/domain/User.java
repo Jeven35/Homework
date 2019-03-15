@@ -26,6 +26,8 @@ public class User {
     private String email;
     private String password;
     private String name;
+    private String tel;
+    private String sex;
     private int status = 0;
     private String validateCode;
     private Date registerTime;

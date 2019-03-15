@@ -1,81 +1,209 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="en" ng-app="myApp" ng-controller="myCtrl">
 <head>
     <meta charset="UTF-8">
     <title>教师信息</title>
     <link rel="stylesheet" href="https://cdn.staticfile.org/twitter-bootstrap/3.3.7/css/bootstrap.min.css">
     <script src="https://cdn.staticfile.org/jquery/2.1.1/jquery.min.js"></script>
+    <script src="http://cdn.static.runoob.com/libs/angular.js/1.4.6/angular.min.js"></script>
     <script src="https://cdn.staticfile.org/twitter-bootstrap/3.3.7/js/bootstrap.min.js"></script>
 </head>
+<style>
+    html {
+        min-width: 1000px;
+    }
+
+    .workerInfo th {
+        text-align: right;
+        font-size: 18px;
+        height: 40px;
+        min-width: 170px;
+    }
+
+    .workerInfo td {
+        text-align: left;
+        padding-left: 60px;
+        font-size: 18px;
+        height: 40px;
+        min-width: 430px;
+    }
+
+    .workerInfo input {
+        min-width: 240px;
+        max-width: 240px;
+    }
+
+    .workerInfo select {
+        min-width: 240px;
+        max-width: 240px;
+    }
+</style>
 <body>
+<div class="container">
+    <div class="row clearfix">
+        <div class="col-md-2 column">
+        </div>
+        <div class="col-md-6 column">
+            <div>
+                <br>
+                <br>
+                <br>
+                <br>
+                &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                &nbsp;&nbsp;&nbsp;&nbsp;
 
+                <span style="font-size:25px">您的信息</span>
 
+                <button class="btn btn-info" type="button" style="float:right" ng-click="editOrSave()">
+                    <span ng-show=!InfoEditable>编辑</span>
+                    <span ng-show=InfoEditable>保存</span>
+                </button>
+            </div>
 
-<div>
-    <span style="font-size:19px">更多资料</span>
+            <hr />
+            <table class="workerInfo" border="0" cellpadding="0" cellspacing="10px" style="width: 500px; border:none">
+                <tbody>
+                <tr>
+                    <th style="">邮箱
+                    </th>
+                    <td style="">
+                        <div> {{userInfo["userEmail"]}} </div>
+                    </td>
 
-    <button class="btn btn-info" type="button" style="float:right" ng-click="editOrSave()">
-        <span ng-show=!InfoEditable>编辑</span>
-        <span ng-show=InfoEditable>保存</span>
-    </button>
+                </tr>
+                <tr>
+                    <th style="">姓名
+                    </th>
+                    <td style="">
+                        <div ng-show=!InfoEditable> {{userInfo["userName"]}} </div>
+                        <div ng-show=InfoEditable><input class="input-medium search-query" type="text" ng-model='userInfo["userName"]' /> </div>
+                    </td>
+
+                </tr>
+                <tr>
+                    <th style="">性别
+                    </th>
+                    <td>
+                        <div ng-show=!InfoEditable> {{userInfo["sex"]}} </div>
+                        <div ng-show=InfoEditable>
+                            <select placeholder="请选择性别" ng-model='userInfo["sex"]'>
+                                <option value="男">男</option>
+                                <option value="女">女</option>
+                            </select>
+
+                        </div>
+                    </td>
+
+                </tr>
+                <tr>
+                    <th style="">手机号码
+                    </th>
+                    <td style="">
+                        <div ng-show=!InfoEditable> {{userInfo["tel"]}} </div>
+                        <div ng-show=InfoEditable>
+
+                            <input class="input-medium search-query" onkeyup="checkPhoneNumber(this)" type="text" ng-model='userInfo["tel"]' />
+
+                        </div>
+                    </td>
+
+                </tr>
+                </tbody>
+            </table>
+        </div>
+        <div class="col-md-4 column">
+        </div>
+    </div>
 </div>
 
-<hr />
-<table class="workerInfo" border="0" cellpadding="0" cellspacing="10px" style="width: 500px; border:none">
-    <tbody>
-    <tr>
-        <th style="">姓名
-        </th>
-        <td style="">
-            <div ng-show=!InfoEditable> {{userInfo["name"]}} </div>
-            <div ng-show=InfoEditable><input class="input-medium search-query" type="text" ng-model='userInfo["name"]' /> </div>
-        </td>
+<script>
+    var app = angular.module('myApp', []);
+    app.controller('myCtrl', function($scope) {
+        $scope.userInfo;
+        $scope.InfoEditable = false;
+        $scope.editOrSave = function() {
+            if($scope.InfoEditable == true) {
 
-    </tr>
-    <tr>
-        <th style="">性别
-        </th>
-        <td>
-            <div ng-show=!InfoEditable> {{userInfo["sex"]}} </div>
-            <div ng-show=InfoEditable>
-                <select placeholder="请选择性别" ng-model='userInfo["sex"]'>
-                    <option value="男">男</option>
-                    <option value="女">女</option>
-                </select>
+                var form = new FormData();
+                form.append("name", $scope.userInfo["userName"])
+                form.append("sex", $scope.userInfo["sex"])
+                form.append("tel", $scope.userInfo["tel"])
 
-            </div>
-        </td>
+                console.log(form);
+                $.ajaxSetup({
+                    async: false
+                });
+                $.ajax({
+                    url: '/updateUserInfo',
+                    type: "POST",
+                    data: form,
+                    processData: false,
+                    contentType: false,
+                    success: function(data, status) {
 
-    </tr>
-    <tr>
-        <th style="">手机号码
-        </th>
-        <td style="">
-            <div ng-show=!InfoEditable> {{userInfo["phoneNumber"]}} </div>
-            <div ng-show=InfoEditable>
+                    },
+                    error: function(XMLHttpRequest, textStatus,
+                                    errorThrown) {
+                    }
+                });
+                $.ajaxSetup({
+                    async: true
+                });
+            }
+            $scope.InfoEditable = !$scope.InfoEditable;
+        }
+        $scope.getUserInfo = function() {
 
-                <input class="input-medium search-query" onkeyup="checkPhoneNumber(this)" type="text" ng-model='userInfo["phoneNumber"]' />
+            $scope.userInfo = queryForWorkerInfo()
+        }
 
-            </div>
-        </td>
+        //init
+        $scope.getUserInfo();
 
-    </tr>
-    <tr>
-        <th style="">个人简介
-        </th>
-        <td style="">
+    });
+</script>
 
-            <textarea id="descriptionTextArea" type="text" class="form-control ng-pristine ng-valid ng-valid-number" placeholder="个人简介" ng-readonly="!InfoEditable" readonly="readonly" style="resize:none;" ng-model='userInfo["description"]'></textarea>
+<script>
+    function queryForWorkerInfo() {
+        var form = new FormData();
+        var result;
+        $.ajaxSetup({
+            async: false
+        });
+        $.ajax({
+            url: '/getUserInfo',
+            type: "POST",
+            data: form,
+            processData: false,
+            contentType: false,
+            success: function(data, status) {
+                if (data.isSuccess == true){
+                    result = data;
+                }
+                else{
+                    alert("请先登录");
+                }
+            },
+            error: function(XMLHttpRequest, textStatus, errorThrown) {
+                alert("链接错误");
+            }
+        });
+        $.ajaxSetup({
+            async: true
+        });
+        return result;
+    }
 
-            <!--<div ng-show=!InfoEditable>  </div>
-        <div ng-show=InfoEditable>
-
-        </div>-->
-        </td>
-
-    </tr>
-    </tbody>
-</table>
+    function checkPhoneNumber(obj) {
+        obj.value = obj.value.replace(/[^\d.]/g, "");
+        obj.value = obj.value.replace(/^\./g, "");
+        obj.value = obj.value.replace(/\.{2,}/g, ".");
+        obj.value = obj.value.replace(".", "$#$").replace(/\./g, "").replace("$#$", ".");
+        if(obj.value.length > 11) {
+            obj.value = obj.value.substring(0, 11);
+        }
+    }
+</script>
 
 </body>
 </html>

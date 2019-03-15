@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Bootstrap 实例</title>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="stylesheet" href="https://cdn.staticfile.org/twitter-bootstrap/4.1.0/css/bootstrap.min.css">
+    <script src="https://cdn.staticfile.org/jquery/3.2.1/jquery.min.js"></script>
+    <script src="https://cdn.staticfile.org/popper.js/1.12.5/umd/popper.min.js"></script>
+    <script src="https://cdn.staticfile.org/twitter-bootstrap/4.1.0/js/bootstrap.min.js"></script>
+</head>
+<body>
+
+<div class="container">
+    <div class="card">
+        <div class="card-header">
+            <h4 class="card-title">课程信息</h4>
+        </div>
+        <div class="card-body">
+            <span>课程名称：</span>
+            <br>
+            <span>课程详情：</span>
+            <br>
+            <span>课程班次：</span>
+            <br>
+            <span>开始时间：</span>
+            <br>
+            <span>结束时间：</span>
+        </div>
+        <div class="card-footer">
+            <button type="button" class="btn btn-lg btn-link" style="float: right" onclick="courseInfo()    ">查看详情</button>
+        </div>
+    </div>
+</div>
+<script>
+    function courseInfo() {
+        alert("lalalal");
+        window.parent.location = "/teacher/CourseFrame";
+    }
+</script>
+</body>
+</html>
