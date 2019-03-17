@@ -10,9 +10,11 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
 
 import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpSession;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.Date;
+import java.util.List;
 
 /**
  * Created by jeven on 2019/3/13.
@@ -86,8 +88,10 @@ public class TeacherController {
         try {
             start = format.parse(request.getParameter("start"));
             end = format.parse(request.getParameter("end"));
-            course.setStart(start);
-            course.setEnd(end);
+            java.sql.Date start1 = new java.sql.Date(start.getTime());
+            java.sql.Date end1 = new java.sql.Date(end.getTime());
+            course.setStart(start1);
+            course.setEnd(end1);
         } catch (ParseException e) {
             e.printStackTrace();
         }
@@ -126,5 +130,38 @@ public class TeacherController {
     @RequestMapping(value = "/courseInfo")
     public String courseInfo(){
         return "teacher/courseInfo";
+    }
+
+
+    /**
+     * 返回教师已经审核过的课程信息
+     */
+    @ResponseBody
+    @RequestMapping(value = "/getCoursesOfTeacher",method = RequestMethod.POST)
+    public List<Course> getCoursesOfTeacher(HttpServletRequest request){
+        String email = request.getSession().getAttribute("UserEmail").toString();
+        List<Course> result = courseService.getCourseOfTeacher(email,1);
+        return result;
+    }
+
+    /**
+     * 保存查看的课程ID
+     * @param request
+     * @return
+     */
+    @ResponseBody
+    @RequestMapping(value = "setCourseID",method = RequestMethod.POST)
+    public boolean setCourseID(HttpServletRequest request){
+        String id = request.getParameter("cid");
+        HttpSession session = request.getSession();
+        session.setAttribute("CourseID",id);
+        return true;
+    }
+
+    @ResponseBody
+    @RequestMapping(value = "getCourseID",method = RequestMethod.GET)
+    public String getCourseID(HttpServletRequest request){
+        String id = request.getSession().getAttribute("CourseID").toString();
+        return id;
     }
 }

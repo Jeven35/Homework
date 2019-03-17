@@ -1,42 +1,91 @@
 <!DOCTYPE html>
-<html>
+<html ng-app="myApp"  ng-controller="myCtrl">
 <head>
-    <title>Bootstrap 实例</title>
+    <title>管理页面</title>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
+
+    <!--layIM-->
+    <link rel="stylesheet" href="/css/layui.css" media="all">
+    <script src="/js/layui.js"></script>
     <link rel="stylesheet" href="https://cdn.staticfile.org/twitter-bootstrap/4.1.0/css/bootstrap.min.css">
     <script src="https://cdn.staticfile.org/jquery/3.2.1/jquery.min.js"></script>
+    <script src="https://cdn.staticfile.org/angular.js/1.4.6/angular.min.js"></script>
+
     <script src="https://cdn.staticfile.org/popper.js/1.12.5/umd/popper.min.js"></script>
     <script src="https://cdn.staticfile.org/twitter-bootstrap/4.1.0/js/bootstrap.min.js"></script>
+
 </head>
 <body>
 
 <div class="container">
-    <div class="card">
-        <div class="card-header">
-            <h4 class="card-title">课程信息</h4>
+    <div ng-repeat="course in courses">
+        <div class="card">
+            <div class="card-header">
+                <h4 class="card-title">课程信息</h4>
+            </div>
+            <div class="card-body">
+                <span>课程名称：{{course.courseName}}</span>
+                <br>
+                <span>课程详情：{{course.courseDes}}</span>
+                <br>
+                <span>课程班次：{{course.classTime}}</span>
+                <br>
+                <span>开始时间：{{course.start}}</span>
+                <br>
+                <span>结束时间：{{course.end}}</span>
+            </div>
+            <div class="card-footer">
+                <button type="button" class="btn btn-link" style="float: right" ng-click="courseInfo($index)">查看详情</button>
+            </div>
         </div>
-        <div class="card-body">
-            <span>课程名称：</span>
-            <br>
-            <span>课程详情：</span>
-            <br>
-            <span>课程班次：</span>
-            <br>
-            <span>开始时间：</span>
-            <br>
-            <span>结束时间：</span>
-        </div>
-        <div class="card-footer">
-            <button type="button" class="btn btn-lg btn-link" style="float: right" onclick="courseInfo()    ">查看详情</button>
-        </div>
+        <br>
+        <br>
     </div>
 </div>
 <script>
     function courseInfo() {
-        alert("lalalal");
         window.parent.location = "/teacher/CourseFrame";
     }
+</script>
+
+
+<script>
+    var app = angular.module('myApp', []);
+    app.controller('myCtrl', function($scope) {
+        $.ajax({
+            async: false,
+            type: "POST",
+            url: "/teacher/getCoursesOfTeacher",
+            dataType : 'json',
+            success : function(data){
+                console.log(data);
+                $scope.courses = data;
+                $scope.courseInfo = function (index) {
+                    console.log($scope.courses);
+                    console.log(index);
+                    var id = $scope.courses[index].id;
+                    alert(id);
+                    var data = {
+                        cid: id
+                    };
+                    $.ajax({
+                        async: false,
+                        type: "POST",
+                        url: "/teacher/setCourseID",
+                        dataType : 'json',
+                        data:data,
+                        success : function(data){
+                            window.parent.location = "/teacher/CourseFrame";
+                        }
+                    })
+                }
+                
+            }
+        })
+        
+        
+    });
 </script>
 </body>
 </html>

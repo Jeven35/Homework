@@ -1,10 +1,88 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="en" ng-app="myApp" ng-controller="myCtrl" xmlns:th="http://www.w3.org/1999/xhtml">
 <head>
     <meta charset="UTF-8">
     <title>课程信息</title>
+    <div th:replace="tool/common::commonHeader"></div>
 </head>
+
+<script>
+    var CourseID = "";
+    $.ajax({
+        async: false,
+        type: "GET",
+        url: "/teacher/getCourseID",
+        success: function (data) {
+           CourseID = data;
+        }
+    });
+
+    var app = angular.module('myApp', []);
+    app.controller('myCtrl', function($scope) {
+
+    });
+</script>
 <body>
-<p2>这是课程信息</p2>
+<div class="container">
+    <h3>通知</h3>
+    <hr>
+    <h3>课件</h3>
+    <div class="layui-row">
+        <div class="layui-form layui-col-md8 " style="padding: 20px;" action="">
+
+            <br />
+            <div style="font-size:21px;margin:10px 20px ;">上传一个新文件</div>
+            <br />
+            <hr class="layui-bg-red" style="font-size:21px;margin:0 10px ;">
+            <br /><br />
+            <div class="layui-form-item">
+                <label class="layui-form-label">输入曲目名</label>
+                <div class="layui-input-block">
+                    <input type="text" id="object-key-file" class="layui-input">
+                </div>
+            </div>
+
+            <div class="layui-form-item layui-form-text ">
+                <label class="layui-form-label">上传文件</label>
+                <div class="layui-input-block ">
+                    <div class="layui-row">
+                        <div class="layui-col-md2">
+                            <input type="button" style="margin-top:-40px" class="layui-btn" id="tpa" value="选择文件" ng-click="tpaClick()" />
+                        </div>
+                        <div class="layui-col-md1">
+                            &nbsp;
+                        </div>
+                        <div class="layui-col-md6" style="margin-top:-20px">
+                            <span id='selectFlieNameSpan'> </span>
+                        </div>
+                        <input type="file" style="display:none;" id="file" value="选择文件" onchange="handleFile()" />
+                    </div>
+
+                </div>
+
+            </div>
+            <br />
+            <div class="layui-form-item layui-row">
+                <div class="layui-input-block">
+
+                    <div class="layui-col-md4 ">
+
+                        <button class="layui-btn" id="file-button">立即提交</button>
+
+                    </div>
+                    <div class="layui-col-md7 ">
+                        &nbsp;
+                    </div>
+                </div>
+
+            </div>
+
+        </div>
+
+    </div>
+    <hr>
+    <h3>作业</h3>
+</div>
+
 </body>
 </html>

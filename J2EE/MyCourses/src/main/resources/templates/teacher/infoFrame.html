@@ -6,21 +6,8 @@
 
     <meta charset="UTF-8">
 
-    <link href="https://cdn.bootcss.com/bootstrap/3.3.7/css/bootstrap.css" rel="stylesheet">
+    <div th:replace="tool/common::commonHeader"></div>
 
-    <script src="http://cdn.static.runoob.com/libs/jquery/2.1.1/jquery.min.js"></script>
-    <script src="http://cdn.static.runoob.com/libs/angular.js/1.4.6/angular.min.js"></script>
-    <script src="http://cdn.static.runoob.com/libs/bootstrap/3.3.7/js/bootstrap.min.js"></script>
-    <script src="http://cdn.static.runoob.com/libs/bootstrap/3.3.7/js/bootstrap.js"></script>
-    <script src="http://apps.bdimg.com/libs/jquery/2.1.1/jquery.min.js"></script>
-
-    <script SRC="js/jsManager/MainJSinclude.js"></script>
-
-    <link rel="stylesheet" href="css/animation/loading.css"> ,
-    <link rel="stylesheet" href="http://cdn.bootcss.com/font-awesome/4.4.0/css/font-awesome.min.css"> ,
-
-    <link rel="stylesheet" type="text/css" href="css/leftNav/default.css">
-    <link rel="stylesheet" href="css/leftNav/bootstrap-vertical-menu.css">
 
     <style>
         html {
@@ -103,30 +90,6 @@
 
 </body>
 
-<script>
-    function loadIframe() {
-        //隐藏加载动画
-        document.getElementById("loading").style.display = "none";
-        document.getElementById("iframepage").style.display = "block";
-        //调整高度
-        var ifm = document.getElementById("iframepage");
-        var subWeb = document.frames ? document.frames["iframepage"].document : ifm.contentDocument;
-        if(ifm != null && subWeb != null) {
-            ifm.height = document.body.scrollHeight - 92;
-            ifm.width = document.body.scrollWidth - 60;
-        }
-    }
-
-    function jumpIframe(page) {
-        //加载动画
-        document.getElementById("loading").style.display = "block";
-        document.getElementById("iframepage").style.display = "none";
-        //加载
-        var ifm = document.getElementById("iframepage");
-        ifm.src = page;
-    }
-
-</script>
 <script>
     var app = angular.module('myApp', []);
     app.controller('myCtrl', function($scope) {
