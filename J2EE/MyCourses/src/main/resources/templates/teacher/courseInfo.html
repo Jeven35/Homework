@@ -34,7 +34,6 @@
             </div>
             <div class="card-body" ng-repeat="file in files" >
                 <button type="button" class="btn btn-link" ng-click="download($index)">{{file.reName}}</button>
-                <!--<a href="#" class="card-link">{{file.reName}}</a>-->
             </div>
         </div>
         <br>
@@ -86,24 +85,46 @@
             data: data,
             dataType : 'json',
             success: function (data) {
-                console.log(data);
+                // console.log(data);
                 $scope.files = data;
 
                 $scope.download = function (index) {
                     alert(index);
+                    // applyTokenDo(downloadFile);
                 }
             }
         })
     });
 
     document.getElementById('upload').onclick = function() {
-        alert("正在上传");
+        if(document.getElementById('file').files.length == 0) {
+            alert("请选择文件！");
+            return;
+        }
+        if(document.getElementById('filename').value == null || document.getElementById('filename').value.trim().length == 0) {
+            alert("文件名不能为空");
+            return;
+        }
+        var data = {
+            cid: CourseID,
+            fileName: document.getElementById('file').files[0].name,
+            reName: document.getElementById('filename').value.trim(),
+            type: 1
+        };
+        $.ajax({
+            async: false,
+            type: "POST",
+            url: "/teacher/upload",
+            dataType : 'json',
+            data: data,
+            success: function (data) {
+                console.log(data);
+            }
+        });
         applyTokenDo(uploadFile);
+        window.location.href = "/teacher/courseInfo";
     };
-    // document.getElementById('tbe_xiazai').onclick = function() {
-    //     applyTokenDo(downloadFile);
-    // };
-    // applyTokenDo(judgeIfUpload);
+
 </script>
 
 </body>

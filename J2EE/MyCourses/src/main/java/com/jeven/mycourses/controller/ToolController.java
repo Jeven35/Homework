@@ -1,6 +1,7 @@
 package com.jeven.mycourses.controller;
 
 import com.alibaba.fastjson.JSONObject;
+import com.jeven.mycourses.bl.oss.OssService;
 import com.jeven.mycourses.domain.User;
 import com.jeven.mycourses.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -21,7 +22,10 @@ import java.util.Map;
 public class ToolController {
 
     @Autowired
-    public UserService userService;
+    private UserService userService;
+
+    @Autowired
+    private OssService ossService;
 
     @ResponseBody
     @RequestMapping(value = "getUserName",method = RequestMethod.POST)
@@ -110,5 +114,12 @@ public class ToolController {
         userService.saveUser(user);
         return true;
 
+    }
+
+    @ResponseBody
+    @RequestMapping("/getSTS")
+    public JSONObject getSTS(HttpServletRequest request){
+
+        return ossService.getSTS();
     }
 }

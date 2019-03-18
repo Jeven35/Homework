@@ -18,4 +18,8 @@ public class FileService {
     public List<File> getFilesByCidAndType(int cid,int type){
         return fileDao.getFilesByCidAndType(cid,type);
     }
+
+    public File saveFile(File file){
+        return fileDao.save(file);
+    }
 }

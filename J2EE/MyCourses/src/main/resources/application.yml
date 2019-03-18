@@ -25,3 +25,10 @@ spring:
 #  servlet:
 #    session:
 #      timeout: 60
+oss:
+   endpoint: sts.aliyuncs.com
+   accessKeyId: LTAIfZymYo17xIkZ
+   accessKeySecret: g8R0rpOrvlfdE09kDyXNffGtbIgWq9
+   roleArn: acs:ram::1597527031596609:role/uploader
+   region: oss-cn-hangzhou
+   bucket: vediodemo

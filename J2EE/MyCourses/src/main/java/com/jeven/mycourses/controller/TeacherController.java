@@ -170,10 +170,31 @@ public class TeacherController {
         return id;
     }
 
+    /**
+     * 获得课程的课件资料
+     * @param request
+     * @return
+     */
     @ResponseBody
     @RequestMapping(value = "getPPTFilesByCid",method = RequestMethod.POST)
     public List<File> getPPTFilesByCid(HttpServletRequest request){
         int cid = Integer.parseInt(request.getParameter("courseID"));
         return fileService.getFilesByCidAndType(cid,1);
+    }
+
+    /**
+     * 上传文件
+     * @param request
+     * @return
+     */
+    @ResponseBody
+    @RequestMapping(value = "upload",method = RequestMethod.POST)
+    public File upload(HttpServletRequest request){
+        File file = new File();
+        file.setCid(Integer.parseInt(request.getParameter("cid")));
+        file.setFileName(request.getParameter("fileName"));
+        file.setReName(request.getParameter("reName"));
+        file.setType(Integer.parseInt(request.getParameter("type")));
+        return fileService.saveFile(file);
     }
 }
