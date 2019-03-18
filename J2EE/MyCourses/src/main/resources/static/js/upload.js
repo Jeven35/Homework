@@ -1,3 +1,10 @@
+var CourseID,fileName,reName;
+
+var set = function (var1,var2,var3) {
+    CourseID = var1;
+    fileName = var2;
+    reName = var3;
+};
 // 传入一个方法 用来调用接口
 var applyTokenDo = function(func) {
     $.ajax({
@@ -10,7 +17,6 @@ var applyTokenDo = function(func) {
             alert('STS请求失败');
         },
         success: function(data) {
-            console.log(data);
             var client = new OSS({
                 region: data.region,
                 accessKeyId: data.accessKeyId,
@@ -52,6 +58,16 @@ var uploadFile = function(client) {
     }
     var suffix = file.name.substr(file.name.lastIndexOf(".")).toLowerCase(); //获得文件后缀名
     console.log(suffix);
+    var CourseID = "";
+    $.ajax({
+        async: false,
+        type: "GET",
+        url: "/teacher/getCourseID",
+        success: function (data) {
+            CourseID = data;
+        }
+    });
+    fileName = CourseID+"/"+fileName+suffix;
     return client.multipartUpload(fileName, file, {
         progress: progress,
         checkpoint: tempCheckPoint,
@@ -66,8 +82,11 @@ var uploadFile = function(client) {
 
 //下载文件
 var downloadFile = function(client) {
-	var object = "第一次作业";
-	var filename = "tjm.mp4";
+    console.log(fileName,CourseID,reName);
+    var suffix = fileName.substr(fileName.lastIndexOf(".")).toLowerCase();
+
+    var object = CourseID + "/"+reName+suffix;
+	var filename = reName+suffix;
 	console.log(filename);
 
 	var result = client.signatureUrl(object, {
@@ -79,30 +98,3 @@ var downloadFile = function(client) {
 
 	return result;
 };
-
-
-
-// function download(url_arr) {
-// 	var triggerDelay = 600;
-// 	var removeDelay = 10000;
-// 	//存放多个下载的url，
-// 	$('.standardload').each(function() {
-// 		url_arr.push($(this).attr('href'));
-// 	})
-//
-// 	url_arr.forEach(function(item, index) {
-// 		_createIFrame(item, index * triggerDelay, removeDelay);
-// 	})
-//
-// 	function _createIFrame(url, triggerDelay, removeDelay) {
-// 		//动态添加iframe，设置src，然后删除
-// 		setTimeout(function() {
-// 			var frame = $('<iframe style="display: none;" class="multi-download"></iframe>');
-// 			frame.attr('src', url);
-// 			$(document.body).after(frame);
-// 			setTimeout(function() {
-// 				frame.remove();
-// 			}, removeDelay);
-// 		}, triggerDelay);
-// 	}
-// }
