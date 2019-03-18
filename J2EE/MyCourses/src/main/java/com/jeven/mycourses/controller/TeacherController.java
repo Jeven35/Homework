@@ -1,7 +1,9 @@
 package com.jeven.mycourses.controller;
 
 import com.jeven.mycourses.domain.Course;
+import com.jeven.mycourses.domain.File;
 import com.jeven.mycourses.service.CourseService;
+import com.jeven.mycourses.service.FileService;
 import com.jeven.mycourses.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -27,6 +29,9 @@ public class TeacherController {
 
     @Autowired
     private CourseService courseService;
+
+    @Autowired
+    private FileService fileService;
 
     /**
      * 返回教师信息页面
@@ -163,5 +168,12 @@ public class TeacherController {
     public String getCourseID(HttpServletRequest request){
         String id = request.getSession().getAttribute("CourseID").toString();
         return id;
+    }
+
+    @ResponseBody
+    @RequestMapping(value = "getPPTFilesByCid",method = RequestMethod.POST)
+    public List<File> getPPTFilesByCid(HttpServletRequest request){
+        int cid = Integer.parseInt(request.getParameter("courseID"));
+        return fileService.getFilesByCidAndType(cid,1);
     }
 }
