@@ -35,4 +35,7 @@ public class DiscussService {
     public Discuss getDiscussByDid(int did){
         return discussDao.getOne(did);
     }
+    public Question saveQuestion(Question question){
+        return questionDao.save(question);
+    }
 }

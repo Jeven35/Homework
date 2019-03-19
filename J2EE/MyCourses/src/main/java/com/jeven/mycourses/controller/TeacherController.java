@@ -319,5 +319,18 @@ public class TeacherController {
         return temp.getUName()+": "+temp.getQName();
     }
 
+    @ResponseBody
+    @RequestMapping(value = "/saveComment",method = RequestMethod.POST)
+    public boolean saveComment(HttpServletRequest request){
+        Question question = new Question();
+        question.setComment(request.getParameter("comment"));
+        question.setEmail(request.getSession().getAttribute("UserEmail").toString());
+        question.setDid(Integer.parseInt(request.getSession().getAttribute("discussID").toString()));
+        question.setUName(request.getSession().getAttribute("UserName").toString());
+        discussService.saveQuestion(question);
+        return true;
+
+
+    }
 
 }

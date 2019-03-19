@@ -38,10 +38,17 @@
             </dl>
         </div>
         <div card-footer>
-            <button type="button" class="btn btn-link" style="float: right">我要发言</button>
-
+            <form role="form" action="/teacher/saveComment" target="form"  method ="post">
+                <div class="form-group">
+                    <textarea class="form-control" rows="3" placeholder="在这里输入你的看法" name="comment"></textarea>
+                    <br>
+                    <input type="submit" class="btn btn-info" value="点击发言">
+                </div>
+            </form>
+            <!--<button type="button" class="btn btn-link" style="float: right">我要发言</button>-->
         </div>
     </div>
+    <iframe name="form" id="form" style="display:none"></iframe>
     <br>
     <br>
 
@@ -71,6 +78,11 @@
     });
 
 </script>
+<script>
+    $("#form").on('load',function(){
+        window.location.href = "/teacher/toQuestion";
+    });
 
+</script>
 </body>
 </html>
