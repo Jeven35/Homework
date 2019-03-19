@@ -195,6 +195,29 @@ public class TeacherController {
         file.setFileName(request.getParameter("fileName"));
         file.setReName(request.getParameter("reName"));
         file.setType(Integer.parseInt(request.getParameter("type")));
+        file.setDdl(request.getParameter("ddl"));
         return fileService.saveFile(file);
+    }
+
+
+    /**
+     * 返回昨夜信息页面
+     * @return
+     */
+    @RequestMapping(value = "/homeworkInfo")
+    public String homeworkInfo(){
+        return "teacher/homework";
+    }
+
+    /**
+     * 获得课程的作业信息
+     * @param request
+     * @return
+     */
+    @ResponseBody
+    @RequestMapping(value = "getHomeworkByCid",method = RequestMethod.POST)
+    public List<File> getHomeworkByCid(HttpServletRequest request){
+        int cid = Integer.parseInt(request.getParameter("courseID"));
+        return fileService.getFilesByCidAndType(cid,2);
     }
 }
