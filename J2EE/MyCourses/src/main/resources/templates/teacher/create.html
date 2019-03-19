@@ -64,7 +64,7 @@
         //获取到的是json的字符串 
         var text = $(this).contents().find("body").text();
         //json字符串转换成json对象  
-        var j = $.parseJSON(text);  
+        var j = $.parseJSON(text);
         if (j == true){
             alert("课程创建成功,等待管理员审核！")
             window.parent.location.href = "/teacher/CreateFrame";

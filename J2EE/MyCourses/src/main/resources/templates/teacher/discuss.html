@@ -1,0 +1,102 @@
+<!DOCTYPE html>
+<html lang="en" ng-app="myApp" ng-controller="myCtrl" xmlns:th="http://www.w3.org/1999/xhtml">
+<head>
+    <meta charset="UTF-8">
+    <title>讨论话题</title>
+    <div th:replace="tool/common::commonHeader"></div>
+
+</head>
+
+<script>
+    var CourseID = "";
+    $.ajax({
+        async: false,
+        type: "GET",
+        url: "/teacher/getCourseID",
+        success: function (data) {
+            CourseID = data;
+        }
+    });
+
+</script>
+<body>
+<div class="container" >
+    <h3>讨论区</h3>
+    <hr>
+    <div ng-repeat="discuss in data">
+        <div class="card">
+            <div class="card-header">
+                <h4 class="card-title">发起者：{{discuss.uname}}</h4>
+            </div>
+            <div class="card-body">
+                <p class="card-text">{{discuss.qname}}</p>
+                <button type="button" class="btn btn-link" style="float: right" ng-click="toDiscuss($index)">参与讨论</button>
+            </div>
+        </div>
+
+        <br>
+
+
+    </div>
+    <br>
+
+    <form role="form" action="/teacher/saveDiscuss" target="form"  method ="post">
+        <div class="form-group">
+            <textarea class="form-control" rows="3" placeholder="请输入问题描述" name="discuss"></textarea>
+            <br>
+            <input type="submit" class="btn btn-info" value="发布问题">
+        </div>
+    </form>
+
+    <iframe name="form" id="form" style="display:none"></iframe>
+</div>
+
+<script>
+    var app = angular.module('myApp', []);
+    app.controller('myCtrl', function($scope) {
+        var para = {
+            CourseID: CourseID
+        };
+        $.ajax({
+            async: false,
+            type: "POST",
+            url: "/teacher/getDiscuss",
+            data: para,
+            dataType : 'json',
+            success: function (data) {
+                console.log(data);
+                $scope.data = data;
+                $scope.toDiscuss = function (index) {
+                    // alert(index);
+                    var did = $scope.data[index].id;
+                    var data = {
+                        did:did
+                    };
+                    $.ajax({
+                        async: false,
+                        type: "POST",
+                        url: "/teacher/toQuestion",
+                        data: data,
+                        dataType: 'json',
+                        success: function (data) {
+                            alert(data);
+                            window.location.href = "/teacher/toQuestion"
+                        }
+                    })
+                }
+            }
+
+        })
+    });
+
+
+</script>
+
+<script>
+    $("#form").on('load',function(){
+        window.location.href = "/teacher/discuss";
+    });
+
+</script>
+</body>
+</html>

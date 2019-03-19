@@ -1,8 +1,11 @@
 package com.jeven.mycourses.controller;
 
 import com.jeven.mycourses.domain.Course;
+import com.jeven.mycourses.domain.Discuss;
 import com.jeven.mycourses.domain.File;
+import com.jeven.mycourses.domain.Question;
 import com.jeven.mycourses.service.CourseService;
+import com.jeven.mycourses.service.DiscussService;
 import com.jeven.mycourses.service.FileService;
 import com.jeven.mycourses.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -32,6 +35,9 @@ public class TeacherController {
 
     @Autowired
     private FileService fileService;
+
+    @Autowired
+    private DiscussService discussService;
 
     /**
      * 返回教师信息页面
@@ -201,7 +207,7 @@ public class TeacherController {
 
 
     /**
-     * 返回昨夜信息页面
+     * 返回作业信息页面
      * @return
      */
     @RequestMapping(value = "/homeworkInfo")
@@ -220,4 +226,98 @@ public class TeacherController {
         int cid = Integer.parseInt(request.getParameter("courseID"));
         return fileService.getFilesByCidAndType(cid,2);
     }
+
+    /**
+     * 返回讨论页面
+     * @return
+     */
+    @RequestMapping(value = "/discuss")
+    public String discuss(){
+        return "teacher/discuss";
+    }
+
+
+    /**
+     * 获得课程的作业信息
+     * @param request
+     * @return
+     */
+    @ResponseBody
+    @RequestMapping(value = "getDiscuss",method = RequestMethod.POST)
+    public List<Discuss> getDiscuss(HttpServletRequest request){
+        int cid = Integer.parseInt(request.getParameter("CourseID"));
+        return discussService.getDiscussByCid(cid);
+    }
+
+
+    /**
+     * 新建论坛
+     * @param request
+     */
+    @ResponseBody
+    @RequestMapping(value = "saveDiscuss",method = RequestMethod.POST)
+    public boolean saveDiscuss(HttpServletRequest request){
+        String email = request.getSession().getAttribute("UserEmail").toString();
+        String uName = userService.findUserByEmail(email).getName();
+        int cid = Integer.parseInt(request.getSession().getAttribute("CourseID").toString());
+        String discussDes = request.getParameter("discuss");
+        Discuss discuss = new Discuss();
+        discuss.setCid(cid);
+        discuss.setEmail(email);
+        discuss.setQName(discussDes);
+        discuss.setUName(uName);
+        discussService.saveDiscuss(discuss);
+        return true;
+    }
+
+
+    /**
+     * 保存问题ID
+     * @param request
+     * @return
+     */
+    @ResponseBody
+    @RequestMapping(value = "toQuestion",method = RequestMethod.POST)
+    public boolean toQuestion(HttpServletRequest request){
+        String did = request.getParameter("did");
+        HttpSession session = request.getSession();
+        session.setAttribute("discussID",did);
+        return true;
+    }
+
+    /**
+     * 返回问题页面
+     * @return
+     */
+    @RequestMapping(value = "/toQuestion")
+    public String toQuestion(){
+        return "teacher/question";
+    }
+
+    /**
+     * 获得问题的讨论信息
+     * @param request
+     * @return
+     */
+    @ResponseBody
+    @RequestMapping(value = "/getQuestions",method = RequestMethod.POST)
+    public List<Question> getQuestions(HttpServletRequest request){
+        int did = Integer.parseInt(request.getSession().getAttribute("discussID").toString());
+        return discussService.getQuestionsByDid(did);
+    }
+
+    /**
+     * 获得问题信息
+     * @param request
+     * @return
+     */
+    @ResponseBody
+    @RequestMapping(value = "getDiscussByDid",method = RequestMethod.POST)
+    public String getDiscussByDid(HttpServletRequest request){
+        int did = Integer.parseInt(request.getSession().getAttribute("discussID").toString());
+        Discuss temp = discussService.getDiscussByDid(did);
+        return temp.getUName()+": "+temp.getQName();
+    }
+
+
 }

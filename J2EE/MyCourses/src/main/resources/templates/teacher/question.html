@@ -1,0 +1,76 @@
+<!DOCTYPE html>
+<html lang="en" ng-app="myApp" ng-controller="myCtrl" xmlns:th="http://www.w3.org/1999/xhtml">
+<head>
+    <meta charset="UTF-8">
+    <title>讨论话题</title>
+    <div th:replace="tool/common::commonHeader"></div>
+    <script src="/js/upload.js"></script>
+    <script src="/js/aliyun-oss-sdk.min.js"></script>
+    <script src="https://www.promisejs.org/polyfills/promise-6.1.0.js"></script>
+
+
+</head>
+
+<script>
+    var CourseID = "";
+    $.ajax({
+        async: false,
+        type: "GET",
+        url: "/teacher/getCourseID",
+        success: function (data) {
+            CourseID = data;
+        }
+    });
+
+</script>
+<body>
+<div class="container" >
+    <h3>讨论区</h3>
+    <hr>
+    <div class="card">
+        <div class="card-header">
+            <h4 class="card-title">{{title}}</h4>
+        </div>
+        <div class="card-body" ng-repeat="file in files" >
+            <dl>
+                <dt>{{file.uname}}:</dt>
+                <dd>{{file.comment}}</dd>
+            </dl>
+        </div>
+        <div card-footer>
+            <button type="button" class="btn btn-link" style="float: right">我要发言</button>
+
+        </div>
+    </div>
+    <br>
+    <br>
+
+</div>
+
+<script>
+    var app = angular.module('myApp', []);
+    app.controller('myCtrl', function($scope) {
+        $.ajax({
+            async: false,
+            url: "/teacher/getQuestions",
+            type: "POST",
+            success: function (data) {
+                $scope.files = data;
+            }
+        });
+        $.ajax({
+            async: false,
+            url: "/teacher/getDiscussByDid",
+            type: "POST",
+            success: function (data) {
+                $scope.title = data;
+            }
+        })
+
+
+    });
+
+</script>
+
+</body>
+</html>
