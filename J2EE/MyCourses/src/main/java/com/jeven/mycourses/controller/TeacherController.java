@@ -90,7 +90,9 @@ public class TeacherController {
         Course course = new Course();
 
         String email = request.getSession().getAttribute("UserEmail").toString();
+        String uname = request.getSession().getAttribute("UserName").toString();
         course.setTEmail(email);
+        course.setTeacherName(uname);
         course.setCourseName(request.getParameter("name"));
         course.setClassTime(request.getParameter("classTime"));
         course.setCourseDes(request.getParameter("des"));

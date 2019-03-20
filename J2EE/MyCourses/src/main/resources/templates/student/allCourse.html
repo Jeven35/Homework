@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html ng-app="myApp"  ng-controller="myCtrl">
 <head>
-    <title>管理页面</title>
+    <title>所有课程</title>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
 
@@ -38,7 +38,7 @@
                 <span>结束时间：{{course.end}}</span>
             </div>
             <div class="card-footer">
-                <button type="button" class="btn btn-link" style="float: right" ng-click="courseInfo($index)">查看详情</button>
+                <button type="button" class="btn btn-link" style="float: right" ng-click="join($index)">申请加入</button>
             </div>
         </div>
         <br>
@@ -47,7 +47,7 @@
 </div>
 <script>
     function courseInfo() {
-        window.parent.location = "/teacher/CourseFrame";
+        window.parent.location = "/student/toCourseFrame";
     }
 </script>
 
@@ -58,14 +58,12 @@
         $.ajax({
             async: false,
             type: "POST",
-            url: "/teacher/getCoursesOfTeacher",
+            url: "/student/getAllCourseNow",
             dataType : 'json',
             success : function(data){
                 console.log(data);
                 $scope.courses = data;
-                $scope.courseInfo = function (index) {
-                    console.log($scope.courses);
-                    console.log(index);
+                $scope.join = function (index) {
                     var id = $scope.courses[index].id;
                     var data = {
                         cid: id
@@ -73,19 +71,20 @@
                     $.ajax({
                         async: false,
                         type: "POST",
-                        url: "/teacher/setCourseID",
+                        url: "/student/judgeJoin",
                         dataType : 'json',
                         data:data,
                         success : function(data){
-                            window.parent.location = "/teacher/CourseFrame";
+                            alert(data["msg"]);
+                            window.location.href = "/student/toAllCourse";
                         }
                     })
                 }
-                
+
             }
         })
-        
-        
+
+
     });
 </script>
 </body>

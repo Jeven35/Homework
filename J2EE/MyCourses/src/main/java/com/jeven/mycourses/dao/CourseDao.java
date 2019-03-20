@@ -5,6 +5,7 @@ import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Repository;
 
 import javax.persistence.Table;
+import java.sql.Date;
 import java.util.List;
 
 /**
@@ -15,4 +16,7 @@ import java.util.List;
 public interface CourseDao extends JpaRepository<Course,Integer>{
     List<Course> getCoursesByTEmailAndState(String email,int state);
 
+    List<Course> getCoursesByStartBeforeAndEndAfter(Date now1,Date now2);
+
+    List<Course> getCoursesByEndBefore(Date now);
 }

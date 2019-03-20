@@ -50,6 +50,11 @@ public class ToolController {
         return "tool/teacher-nav";
     }
 
+    @RequestMapping(value = "nav-student")
+    public String getsNav(){
+        return "tool/student-nav";
+    }
+
 
     @RequestMapping(value = "InfoFrame")
     public String tInfoFrame(HttpServletRequest request){

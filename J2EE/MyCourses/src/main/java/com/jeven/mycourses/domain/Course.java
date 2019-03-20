@@ -34,6 +34,8 @@ public class Course {
 
     private int number;
 
+    private int chosen;
+
     @Column(name = "classtime")
     private String classTime;
 
@@ -42,4 +44,6 @@ public class Course {
     private Date end;
 
     private int state;
+
+    private String teacherName;
 }

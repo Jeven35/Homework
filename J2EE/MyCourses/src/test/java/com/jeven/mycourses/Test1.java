@@ -16,7 +16,7 @@ public class Test1 extends TestFather {
 
     @Test
     public void test1() {
-        User user = userService.findUserByEmail("123");
+        User user = userService.findUserByEmail("111");
         BCryptPasswordEncoder passwordEncoder = new BCryptPasswordEncoder();
         // 加密
         String encodedPassword = passwordEncoder.encode(user.getPassword().trim());
