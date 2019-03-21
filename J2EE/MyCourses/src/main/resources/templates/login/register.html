@@ -72,27 +72,21 @@
             //注册
             $("#doLogin").click(function (e) {
                 var data = {
-                    "email": $("#userEmail").val(),
-                    "password":  $("#password").val(),
-                    "name": $("#userName").val()
+                    email: $("#userEmail").val(),
+                    password:  $("#password").val(),
+                    name: $("#userName").val(),
+                    action:"register"
                 };
-                var dataStr = JSON.stringify(data);
-                console.log(dataStr);
-                console.log(data);
                 $.ajax({
+                    async:false,
                     type : "POST",
                     url : "/register",
-                    data :dataStr,
+                    data :data,
                     dataType : "json",
-                    contentType: "application/json;charset=utf-8", // 因为上面是JSON数据
-                    headers: {
-                        // Accept: "application/xml",
-                        Accept: "application/json",
-                    },
                     success : function(data) {
                         console.log(data);
                     },
-                    error: function (data, textStatus, errorThrown) {
+                    error: function (data) {
                         console.log(data);
                     },
                 });

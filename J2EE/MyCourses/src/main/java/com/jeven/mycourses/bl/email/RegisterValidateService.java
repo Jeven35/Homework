@@ -1,9 +1,12 @@
 package com.jeven.mycourses.bl.email;
 
 import com.jeven.mycourses.dao.UserDao;
+import com.jeven.mycourses.dao.UserRoleDao;
 import com.jeven.mycourses.domain.User;
+import com.jeven.mycourses.domain.UserRole;
 import org.hibernate.service.spi.ServiceException;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
 
 import javax.mail.internet.ParseException;
@@ -19,16 +22,24 @@ public class RegisterValidateService {
     @Autowired
     private UserDao userDao;
 
+    @Autowired
+    private UserRoleDao userRoleDao;
+
+
     /**
      * 处理注册
      */
     public void processregister(String email,String password,String name){
         User user = new User();
+        BCryptPasswordEncoder passwordEncoder = new BCryptPasswordEncoder();
+        // 加密
+        String encodedPassword = passwordEncoder.encode(password.trim());
+        user.setPassword(encodedPassword);
         user.setName(name);
-        user.setPassword(password);
         user.setEmail(email);
         user.setRegisterTime(new Date());
         user.setStatus(0);
+        user.setSex("男");
         ///如果处于安全，可以将激活码处理的更复杂点，这里我稍做简单处理
         //user.setValidateCode(MD5Tool.MD5Encrypt(email));
         user.setValidateCode(MD5Util.encode2hex(email));
@@ -78,6 +89,16 @@ public class RegisterValidateService {
                         user.setStatus(1);//把状态改为激活
                         System.out.println("==sh==="+user.getStatus());
                         userDao.save(user);
+                        UserRole userRole = new UserRole();
+                        userRole.setEmail(email);
+                        String[] array = email.split("@");
+                        if (array[1].equals("nju.edu.cn")){
+                            userRole.setRid(2);
+                        }
+                        else{
+                            userRole.setRid(1);
+                        }
+                        userRoleDao.save(userRole);
                     } else {
                         throw new ServiceException("激活码不正确");
                     }

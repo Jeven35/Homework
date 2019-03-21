@@ -4,13 +4,16 @@
     <meta charset="UTF-8">
     <title>作业信息</title>
     <div th:replace="tool/common::commonHeader"></div>
+
     <script type="text/javascript" src="/js/upload.js"></script>
+
     <script src="/js/aliyun-oss-sdk.min.js"></script>
     <script src="https://www.promisejs.org/polyfills/promise-6.1.0.js"></script>
 </head>
 
 <script>
     var CourseID = "";
+    var recordID;
     var email = "";
     var ddl;
     var homeworkName = "";
@@ -36,24 +39,6 @@
 <div class="container" >
     <h3>作业</h3>
     <hr>
-    <div class="card">
-        <div class="card-header">
-            <h4 class="card-title">作业列表</h4>
-        </div>
-        <div class="card-body" ng-repeat="record in records" >
-            <span>作业要求：</span>
-            <button type="button" class="btn btn-link" ng-click="downloadHomework($index)">{{record.homeworkName}}</button>
-            <br>
-            <p>作业状态：&nbsp;&nbsp;&nbsp;&nbsp;{{record.state}}</p>
-            <p class="text-info font-weight-bold">截止日期是：{{record.ddl}}</p>
-            <button class="btn btn-default" ng-click="upload($index)">上传作业</button>
-            <button class="btn btn-default" ng-click="downloadAnswer($index)">下载作业</button>
-            <br>
-            <hr>
-        </div>
-    </div>
-    <br>
-    <br>
     <div class="card" ng-show=ifUpload>
         <div class="card-header">
             <h4 class="card-title">上传作业</h4>
@@ -81,6 +66,24 @@
             </div>
         </div>
     </div>
+    <div class="card">
+        <div class="card-header">
+            <h4 class="card-title">作业列表</h4>
+        </div>
+        <div class="card-body" ng-repeat="record in records" >
+            <span>作业要求：</span>
+            <button type="button" class="btn btn-link" ng-click="downloadHomework($index)">{{record.homeworkName}}</button>
+            <br>
+            <p>作业状态：&nbsp;&nbsp;&nbsp;&nbsp;{{record.state}}</p>
+            <p class="text-info font-weight-bold">截止日期是：{{record.ddl}}</p>
+            <button class="btn btn-default" ng-click="upload($index)" >上传作业</button>
+            <button class="btn btn-default" ng-click="downloadAnswer($index)">下载作业</button>
+            <br>
+            <hr>
+        </div>
+    </div>
+    <br>
+    <br>
 
 </div>
 
@@ -103,11 +106,15 @@
                 $scope.records = data;
 
                 $scope.upload = function(index){
-                    sayHello();
-                    $scope.homeworkName = $scope.records[index].homeworkName;
+                    if (!compareTime($scope.records[index].ddl)){
+                        alert("截止日期已到，请联系助教提交。。。");
+                        return;
+                    }
+                    $scope.homeworkName = $scope.records[index].homeworkName.split(".")[0];
                     $scope.ifUpload = true;
                     ddl = $scope.records[index].ddl;
                     homeworkName = $scope.records[index].homeworkName;
+                    recordID =  $scope.records[index].id;
                 };
                 $scope.downloadHomework = function (index) {
                     var uploadName = CourseID+"/"+"homework/"+ $scope.records[index].fullName;
@@ -117,8 +124,13 @@
                     applyTokenDo(downloadFile);
                 };
                 $scope.downloadAnswer = function (index) {
-                    test();
-                    var uploadName = "student/"+email+ "/"+CourseID+"/"+"homework/"+ $scope.records[index].fullName;
+                    if($scope.records[index].state == "未提交"){
+                        alert("您未提交任何作业！");
+                        return;
+                    }
+                    homeworkName = $scope.records[index].homeworkName;
+                    var homework = homeworkName.split(".")[0];
+                    var uploadName = "student/"+email+ "/"+CourseID+"/"+"homework/"+ homework + "/"+ $scope.records[index].fullName;
                     var downloadName = $scope.records[index].fullName;
                     setUploadName(uploadName);
                     setDownloadName(downloadName);
@@ -133,7 +145,6 @@
             alert("请选择文件！");
             return;
         }
-        sayHello();
         // if(document.getElementById('filename').value == null || document.getElementById('filename').value.trim().length == 0) {
         //     alert("文件名不能为空");
         //     return;
@@ -147,11 +158,12 @@
         console.log(uploadName);
         setUploadName(uploadName);
         var data = {
-            cid: CourseID,
-            homeworkName:homeworkName,
-            fullName:fileName,
+            id:recordID,
             email: email,
+            homeworkName:homeworkName,
+            courseID: CourseID,
             state: "已提交",
+            fullName:fileName,
             ddl: ddl
         };
         $.ajax({
@@ -166,12 +178,31 @@
         });
         applyTokenDo(uploadFile);
     };
+    
+    var compareTime = function (ddl) {
+        var now = new Date();
+        var str = "" + now.getFullYear() + "-";
+        if (now.getMonth()+1 >=10){
+            str += (now.getMonth()+1) + "-";
+        }else{
+            str += "0"+(now.getMonth()+1) + "-";
+        }
+        if(now.getDate()>=10){
+            str += now.getDate();
+        }
+        else{
+            str = "0"+str+now.getDate();
+        }
+        var nowArray=str.split('-');
+        var ddlArray = ddl.split("-");
+        console.log(nowArray,ddlArray);
+        if (nowArray > ddlArray)
+            // console.log(false)
+            return false;
+        else
+            // console.log(true)
+            return true;
 
-</script>
-
-<script>
-    var test = function () {
-        sayHello();
     }
 </script>
 

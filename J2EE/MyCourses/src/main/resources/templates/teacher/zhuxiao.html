@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>注销</title>
+
+    <link rel="stylesheet" href="https://cdn.staticfile.org/twitter-bootstrap/3.3.7/css/bootstrap.min.css">
+    <script src="https://cdn.staticfile.org/jquery/2.1.1/jquery.min.js"></script>
+    <script src="https://cdn.staticfile.org/twitter-bootstrap/3.3.7/js/bootstrap.min.js"></script>
+</head>
+<body>
+<div class="container">
+    <h4>注销登出界面</h4>
+    <hr>
+    <br>
+    <div class="row clearfix">
+        <div class="col-md-6 column">
+            <button class="btn btn-danger btn-lg" onclick="zhuxiao()">注销</button>
+            <!--<form action="/zhuxiao" role="form">-->
+                <!--<input type="submit" class="btn btn-danger btn-lg" value="注销">-->
+            <!--</form>-->
+        </div>
+        <div class="col-md-6 column">
+            <form action="/logout" role="form">
+                <input type="submit" class="btn btn-warning btn-lg" value="登出">
+            </form>
+        </div>
+    </div>
+</div>
+
+<script>
+    function zhuxiao() {
+        $.ajax({
+            async:false,
+            type:"GET",
+            url:"/zhuxiao",
+            success: function (data) {
+                window.parent.location.href = "/";
+            }
+        })
+    }
+</script>
+</body>
+</html>

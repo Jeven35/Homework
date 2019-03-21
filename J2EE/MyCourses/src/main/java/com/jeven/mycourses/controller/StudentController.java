@@ -179,24 +179,40 @@ public class StudentController {
     }
 
 
-//    /**
-//     * 保存学生提交记录
-//     */
-//    @ResponseBody
-//    @RequestMapping(value = "saveRecord",method = RequestMethod.POST)
-//    public String saveRecord(@RequestParam(value = "cid") int cid,@RequestParam(value = "homeworkName") String homeworkName,
-//                             @RequestParam(value = "fullName") String fullName,@RequestParam(value = "email") String email,
-//                             @RequestParam(value = "state") String state,@RequestParam(value = "ddl") java.sql.Date ddl ){
-//
-//
-//    }
     /**
      * 保存学生提交记录
      */
     @ResponseBody
     @RequestMapping(value = "saveRecord",method = RequestMethod.POST)
-    public Boolean saveRecord(@RequestBody StudentHomeworkRecord studentHomeworkRecord){
+    public String saveRecord(@RequestParam(value = "courseID") int cid,@RequestParam(value = "homeworkName") String homeworkName,
+                             @RequestParam(value = "fullName") String fullName,@RequestParam(value = "email") String email,
+                             @RequestParam(value = "state") String state,@RequestParam(value = "ddl") java.sql.Date ddl,
+                             @RequestParam(value = "id") int id){
+        StudentHomeworkRecord studentHomeworkRecord = new StudentHomeworkRecord(id,email,homeworkName,cid,state,fullName,ddl);
         homeworkService.saveRecord(studentHomeworkRecord);
+        return "保存成功";
+
+    }
+
+
+    @ResponseBody
+    @RequestMapping(value = "/ArrangementHomework")
+    public Boolean ArrangementHomework(HttpServletRequest request){
+        int cid = Integer.parseInt(request.getParameter("cid"));
+        String homeworkName = request.getParameter("homeworkName");
+        List<String> students = courseService.getAllStudentByCid(cid);
+        java.sql.Date date = java.sql.Date.valueOf(request.getParameter("ddl"));
+        int size = students.size();
+        for (int i=0;i<size;i++){
+            StudentHomeworkRecord studentHomeworkRecord = new StudentHomeworkRecord();
+            studentHomeworkRecord.setCourseID(cid);
+            studentHomeworkRecord.setEmail(students.get(i));
+            studentHomeworkRecord.setDdl(date);
+            studentHomeworkRecord.setHomeworkName(homeworkName);
+            studentHomeworkRecord.setState("未提交");
+            studentHomeworkRecord.setFullName(" ");
+            homeworkService.saveRecord(studentHomeworkRecord);
+        }
         return true;
     }
 }

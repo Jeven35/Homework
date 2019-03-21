@@ -50,6 +50,14 @@ public class TeacherController {
 
 
     /**
+     * 返回注销页面
+     * @return
+     */
+    @RequestMapping(value = "/toLogout")
+    public String toLogout(){
+        return "teacher/zhuxiao";
+    }
+    /**
      * 返回创建课程框架
      * @return
      */

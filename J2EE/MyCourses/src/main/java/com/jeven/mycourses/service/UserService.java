@@ -34,7 +34,11 @@ public class UserService implements UserDetailsService {
     }
 
 
-
+    public void deleteUser(String email){
+        User user = findUserByEmail(email);
+        userDao.delete(user);
+        return;
+    }
 
 
 

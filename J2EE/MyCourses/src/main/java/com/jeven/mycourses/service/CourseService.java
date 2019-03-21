@@ -78,4 +78,16 @@ public class CourseService {
         return courseDao.getCoursesByEndBefore(now);
     }
 
+    // 获得所有选这门课的学生的邮箱
+    public List<String> getAllStudentByCid(int cid){
+        List<StudentOfCourse> studentOfCourses = studentOfCourseDao.findStudentOfCoursesByCourseID(cid);
+        int len = studentOfCourses.size();
+        ArrayList<String> result = new ArrayList<>();
+
+        for(int i=0;i<len;i++){
+            result.add(studentOfCourses.get(i).getEmail());
+        }
+        return result;
+    }
+
 }

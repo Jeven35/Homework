@@ -92,7 +92,11 @@
                 $scope.files = data;
 
                 $scope.download = function (index) {
-                    set(CourseID,data[index].fileName,data[index].reName);
+                    var suffix = data[index].fileName.substr(data[index].fileName.lastIndexOf(".")).toLowerCase();
+                    var uploadName = CourseID+"/homework/"+data[index].reName+suffix;
+                    var downloadName = data[index].reName+suffix;
+                    setUploadName(uploadName);
+                    setDownloadName(downloadName);
                     applyTokenDo(downloadFile);
                 }
             }
@@ -108,10 +112,16 @@
             alert("文件名不能为空");
             return;
         }
+        var file = document.getElementById('file').files[0];
+        var fileName = file.name;
+        var reName = document.getElementById('filename').value.trim() || 'object';
+        var suffix = fileName.substr(fileName.lastIndexOf(".")).toLowerCase(); //获得文件后缀名
+        var uploadName = CourseID+"/homework/"+reName+suffix;
+        setUploadName(uploadName);
         var data = {
             cid: CourseID,
-            fileName: document.getElementById('file').files[0].name,
-            reName: document.getElementById('filename').value.trim(),
+            fileName: fileName,
+            reName: reName,
             type: 2,
             ddl:document.getElementById('ddl').value
         };
@@ -121,6 +131,21 @@
             url: "/teacher/upload",
             dataType : 'json',
             data: data,
+            success: function (data) {
+                console.log(data);
+            }
+        });
+        var data2 = {
+            cid:CourseID,
+            homeworkName: reName+suffix,
+            ddl:document.getElementById('ddl').value
+        };
+        $.ajax({
+            async: false,
+            type: "POST",
+            url: "/student/ArrangementHomework",
+            dataType : 'json',
+            data: data2,
             success: function (data) {
                 console.log(data);
             }

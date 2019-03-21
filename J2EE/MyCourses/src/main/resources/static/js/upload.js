@@ -1,13 +1,5 @@
 var uploadName,downloadName;
 
-
-function sayhello(){
-    alert("baocuo");
-}
-sayHello = function () {
-    alert("hello");
-};
-
 // 设置上传时的名字
 setUploadName = function (var1) {
     uploadName = var1;

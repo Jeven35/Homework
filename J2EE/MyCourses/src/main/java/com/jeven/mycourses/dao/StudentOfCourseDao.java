@@ -17,4 +17,6 @@ import java.util.List;
 public interface StudentOfCourseDao extends JpaRepository<StudentOfCourse,Integer> {
     List<StudentOfCourse> findStudentOfCoursesByCourseIDAndEmail(int course,String email);
 
+    List<StudentOfCourse> findStudentOfCoursesByCourseID(int cid);
+
 }
