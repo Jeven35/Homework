@@ -61,7 +61,7 @@
                         <span>结束时间：{{course.end}}</span>
                     </div>
                     <div class="card-footer">
-                        <button type="button" class="btn btn-link" style="float: right" ng-click="join($index)">进入课程</button>
+                        <button type="button" class="btn btn-link" style="float: right" ng-click="join2($index)">进入课程</button>
                     </div>
                 </div>
                 <br>
@@ -130,6 +130,21 @@
             dataType : 'json',
             success : function(data){
                 $scope.finishedCourses = data;
+                $scope.join2 = function (index) {
+                    var id = $scope.courses[index].id;
+                    var data = {
+                        cid: id
+                    };
+                    $.ajax({
+                        async: false,
+                        type: "POST",
+                        url: "/teacher/setCourseID",
+                        data: data,
+                        success: function (data) {
+                            window.parent.location.href = "/student/toFinishCourseFrame";
+                        }
+                    })
+                }
             }
         })
 

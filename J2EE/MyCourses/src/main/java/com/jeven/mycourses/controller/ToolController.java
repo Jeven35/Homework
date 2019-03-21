@@ -1,8 +1,10 @@
 package com.jeven.mycourses.controller;
 
 import com.alibaba.fastjson.JSONObject;
+import com.jeven.mycourses.bl.email.SendEmail;
 import com.jeven.mycourses.bl.oss.OssService;
 import com.jeven.mycourses.domain.User;
+import com.jeven.mycourses.service.CourseService;
 import com.jeven.mycourses.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -13,6 +15,7 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 
 /**
@@ -26,6 +29,9 @@ public class ToolController {
 
     @Autowired
     private OssService ossService;
+
+    @Autowired
+    private CourseService courseService;
 
     @ResponseBody
     @RequestMapping(value = "getUserName",method = RequestMethod.POST)
@@ -55,6 +61,10 @@ public class ToolController {
         return "tool/student-nav";
     }
 
+    @RequestMapping(value = "nav-admin")
+    public String getaNav(){
+        return "tool/admin-nav";
+    }
 
     @RequestMapping(value = "InfoFrame")
     public String tInfoFrame(HttpServletRequest request){
@@ -134,4 +144,19 @@ public class ToolController {
         String email = request.getSession().getAttribute("UserEmail").toString();
         return email;
     }
+    @ResponseBody
+    @RequestMapping(value = "/sendEmail",method = RequestMethod.POST)
+    public Boolean sendEmail(HttpServletRequest request){
+        String contend = request.getParameter("contend");
+        int cid = Integer.parseInt(request.getSession().getAttribute("CourseID").toString());
+        List<String> students = courseService.getAllStudentByCid(cid);
+        int len = students.size();
+        for(int i=0;i<len;i++){
+            String email = students.get(i);
+            SendEmail.send(email,contend,"课程通知邮件");
+        }
+
+        return false;
+    }
+
 }

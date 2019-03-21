@@ -18,6 +18,7 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
+import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 
@@ -58,15 +59,59 @@ public class TeacherController {
         return "teacher/zhuxiao";
     }
     /**
+     * 返回发布课程
+     * @return
+     */
+    @RequestMapping(value = "/toRelease")
+    public String toRelease(){
+        return "teacher/release";
+    }
+
+    /**
+     * 返回发布课程框架
+     * @return
+     */
+    @RequestMapping(value = "/toReleaseCourse")
+    public String toReleaseCourse(){
+        return "teacher/releaseCourse";
+    }
+
+    /**
+     * 返回审核课程界面
+     * @return
+     */
+    @RequestMapping(value = "/toCheckingPage")
+    public String toCheckingPage(){
+        return "teacher/cheakingPage";
+    }
+
+
+    /**
      * 返回创建课程框架
+     * @return
+     */
+    @RequestMapping(value = "/toGrade")
+    public String toGrade(){
+        return "/teacher/grade";
+    }
+
+    /**
+     * 返回创建课程框架
+     * @return
+     */
+    @RequestMapping(value = "/toEmail")
+    public String toEmail(){
+        return "/teacher/email";
+    }
+
+    /**
+     * 返回成绩界面
      * @return
      */
     @RequestMapping(value = "/CreateFrame")
     public String CreateFrame(){
         return "teacher/createFrame";
     }
-
-
     /**
      * 返回管理课程框架
      * @return
@@ -164,6 +209,19 @@ public class TeacherController {
         List<Course> result = courseService.getCourseOfTeacher(email,1);
         return result;
     }
+
+
+    /**
+     * 返回教师待审核过的课程信息
+     */
+    @ResponseBody
+    @RequestMapping(value = "/getCheakingCoursesOfTeacher",method = RequestMethod.POST)
+    public List<Course> getCheakingCoursesOfTeacher(HttpServletRequest request){
+        String email = request.getSession().getAttribute("UserEmail").toString();
+        List<Course> result = courseService.getCourseOfTeacher(email,0);
+        return result;
+    }
+
 
     /**
      * 保存查看的课程ID
@@ -343,4 +401,25 @@ public class TeacherController {
 
     }
 
+
+    @ResponseBody
+    @RequestMapping(value = "/getCourseByCid",method = RequestMethod.GET)
+    public Course getCourseByCid(HttpServletRequest request){
+        int cid = Integer.parseInt(request.getSession().getAttribute("CourseID").toString());
+        Course course = courseService.getCourse(cid).get();
+        return course;
+    }
+
+
+    /**
+     * 获得成绩信息
+     * @param request
+     * @return
+     */
+    @ResponseBody
+    @RequestMapping(value = "getGrades",method = RequestMethod.POST)
+    public List<File> getGrades(HttpServletRequest request){
+        int cid = Integer.parseInt(request.getParameter("courseID"));
+        return fileService.getFilesByCidAndType(cid,3);
+    }
 }

@@ -10,6 +10,7 @@ import org.springframework.stereotype.Service;
 import java.sql.Date;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Optional;
 
 /**
  * Created by jeven on 2019/3/15.
@@ -40,8 +41,8 @@ public class CourseService {
         return courseDao.getCoursesByStartBeforeAndEndAfter(now,now);
     }
 
-    public Course getCourse(int cid){
-        return courseDao.getOne(cid);
+    public Optional<Course> getCourse(int cid){
+        return courseDao.findById(cid);
     }
 
     // 获得学生的选课记录
@@ -89,5 +90,11 @@ public class CourseService {
         }
         return result;
     }
+
+    // 获得多有待审核的课程
+    public List<Course> getAllCheckingCourse(){
+        return courseDao.findCoursesByState(0);
+    }
+
 
 }

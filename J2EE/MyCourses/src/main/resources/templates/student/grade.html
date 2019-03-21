@@ -1,0 +1,77 @@
+<!DOCTYPE html>
+<html lang="en" ng-app="myApp" ng-controller="myCtrl" xmlns:th="http://www.w3.org/1999/xhtml">
+<head>
+    <meta charset="UTF-8">
+    <title>成绩信息</title>
+    <div th:replace="tool/common::commonHeader"></div>
+    <script src="/js/upload.js"></script>
+    <script src="/js/aliyun-oss-sdk.min.js"></script>
+    <script src="https://www.promisejs.org/polyfills/promise-6.1.0.js"></script>
+
+
+</head>
+
+<script>
+    var CourseID = "";
+    $.ajax({
+        async: false,
+        type: "GET",
+        url: "/teacher/getCourseID",
+        success: function (data) {
+            CourseID = data;
+        }
+    });
+
+</script>
+<body>
+<div class="container" >
+    <h3>成绩</h3>
+    <hr>
+    <div class="card">
+        <div class="card-header">
+            <h4 class="card-title">历史成绩</h4>
+        </div>
+        <div class="card-body" ng-repeat="file in files" >
+            <span>{{file.reName}}:</span>
+            <button type="button" class="btn btn-link" ng-click="download($index)">{{file.fileName}}</button>
+            <hr>
+        </div>
+    </div>
+    <br>
+    <br>
+
+</div>
+
+<script>
+    var app = angular.module('myApp', []);
+    app.controller('myCtrl', function($scope) {
+        var data = {
+            courseID: CourseID
+        };
+        $.ajax({
+            async: false,
+            type: "POST",
+            url: "/teacher/getGrades",
+            data: data,
+            dataType : 'json',
+            success: function (data) {
+                console.log(data);
+                $scope.files = data;
+
+                $scope.download = function (index) {
+                    var suffix = data[index].fileName.substr(data[index].fileName.lastIndexOf(".")).toLowerCase();
+                    var uploadName = CourseID+"/grade/"+data[index].reName+suffix;
+                    var downloadName = data[index].reName+suffix;
+                    setUploadName(uploadName);
+                    setDownloadName(downloadName);
+                    applyTokenDo(downloadFile);
+                };
+
+            }
+        })
+    });
+
+</script>
+
+</body>
+</html>

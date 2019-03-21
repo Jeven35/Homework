@@ -19,4 +19,6 @@ public interface CourseDao extends JpaRepository<Course,Integer>{
     List<Course> getCoursesByStartBeforeAndEndAfter(Date now1,Date now2);
 
     List<Course> getCoursesByEndBefore(Date now);
+
+    List<Course> findCoursesByState(int state);
 }

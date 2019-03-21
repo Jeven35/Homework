@@ -12,6 +12,7 @@
 </head>
 
 <script>
+    var fid;
     var CourseID = "";
     var recordID;
     var email = "";
@@ -115,9 +116,10 @@
                     ddl = $scope.records[index].ddl;
                     homeworkName = $scope.records[index].homeworkName;
                     recordID =  $scope.records[index].id;
+                    fid = $scope.records[index].fid;
                 };
                 $scope.downloadHomework = function (index) {
-                    var uploadName = CourseID+"/"+"homework/"+ $scope.records[index].fullName;
+                    var uploadName = CourseID+"/"+"homework/"+ $scope.records[index].homeworkName;
                     var downloadName = $scope.records[index].fullName;
                     setUploadName(uploadName);
                     setDownloadName(downloadName);
@@ -152,12 +154,14 @@
         var file = document.getElementById('file').files[0];
         var fileName = file.name;
         var homework = homeworkName.split(".")[0];
+        alert(homework);
         // var reName = document.getElementById('filename').value.trim() || 'object';
         // var suffix = file.name.substr(file.name.lastIndexOf(".")).toLowerCase(); //获得文件后缀名
         var uploadName = "student/"+email+ "/"+CourseID+"/"+"homework/"+ homework+"/"+fileName;
         console.log(uploadName);
         setUploadName(uploadName);
         var data = {
+            fid:fid,
             id:recordID,
             email: email,
             homeworkName:homeworkName,

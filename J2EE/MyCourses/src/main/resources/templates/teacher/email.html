@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <title>群发邮件</title>
+    <link rel="stylesheet" href="https://cdn.staticfile.org/twitter-bootstrap/3.3.7/css/bootstrap.min.css">
+    <script src="https://cdn.staticfile.org/jquery/2.1.1/jquery.min.js"></script>
+    <script src="https://cdn.staticfile.org/twitter-bootstrap/3.3.7/js/bootstrap.min.js"></script>
+</head>
+<body>
+<div class="container">
+    <form role="form">
+        <br>
+        <div class="form-group">
+            <br>
+            <br>
+            <br>
+            <label>邮件内容：</label>
+            <br>
+            <textarea class="form-control" rows="3" id="content" name="contend" placeholder="请输入邮件内容"></textarea>
+            <br>
+            <button class="btn btn-info" onclick="sendEmail()">发送邮件</button>
+        </div>
+    </form>
+</div>
+<script>
+    var sendEmail = function () {
+        var contend = $("#content").val();
+        var data = {
+            contend: contend
+        };
+        $.ajax({
+            async:false,
+            type:"POST",
+            url: "/sendEmail",
+            data: data,
+            dataType: "json",
+            success: function (data) {
+                alert("邮件正在发送！")
+            }
+        })
+    }
+</script>
+</body>
+</html>

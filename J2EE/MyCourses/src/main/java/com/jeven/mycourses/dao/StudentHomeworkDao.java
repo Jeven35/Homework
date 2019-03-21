@@ -14,4 +14,6 @@ import java.util.List;
 @Table(name = "student_homework")
 public interface StudentHomeworkDao extends JpaRepository<StudentHomeworkRecord, Integer> {
     List<StudentHomeworkRecord> findStudentHomeworkRecordsByEmailAndCourseID(String email,int id);
+
+    List<StudentHomeworkRecord> findStudentHomeworkRecordsByFid(int fid);
 }

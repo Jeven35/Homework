@@ -23,4 +23,8 @@ public class HomeworkService {
         return studentHomeworkDao.save(studentHomeworkRecord);
     }
 
+    public List<StudentHomeworkRecord> getRecordsByfiD(int fid){
+        return studentHomeworkDao.findStudentHomeworkRecordsByFid(fid);
+    }
+
 }

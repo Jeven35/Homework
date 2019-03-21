@@ -100,7 +100,7 @@ public class LoginController {
             return "student/infoFrame";
         }
         else if(session.getAttribute("Role").equals("admin")){
-            return "adminPage";
+            return "/admin/checkFrame";
         }
         else{
             return "/";

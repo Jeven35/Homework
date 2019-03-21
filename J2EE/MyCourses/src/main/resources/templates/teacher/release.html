@@ -1,0 +1,100 @@
+<!DOCTYPE html>
+<html ng-app="myApp"  ng-controller="myCtrl">
+<head>
+    <meta charset="utf-8">
+    <title>创建课程</title>
+
+    <div th:replace="tool/common::commonHeader"></div>
+</head>
+<body>
+
+<div class="container">
+    <div class="row clearfix">
+        <div class="col-md-2 column">
+        </div>
+        <div class="col-md-6 column">
+            <form  target="form" role="form" action="/teacher/saveCourse"  method ="post">
+                <br>
+                <br>
+                <br>
+                <div class="form-group">
+                    <label for="name">课程名称</label>
+                    <input type="text" class="form-control" id="name"
+                           placeholder="请输入课程名称" name="name" ng-model="name">
+                </div>
+
+                <div class="form-group">
+                    <label for="des">课程描述</label>
+                    <br>
+                    <textarea style="width:550px;height:100px;" id="des" placeholder="请输入课程描述" name="des" ng-model="des"></textarea>
+                </div>
+                <div class="form-group">
+                    <label for="num">限选人数</label>
+                    <input type="number" class="form-control" id="num"
+                           placeholder="请输入限选人数" name="num" ng-model="num" >
+                </div>
+                <div class="form-group">
+                    <label for="classTime">课程时间</label>
+                    <input type="text" class="form-control" id="classTime"
+                           placeholder="请输入每周上课时间" name="classTime" ng-model="classTime">
+                </div>
+                <div class="form-group">
+                    <label for="start">选择开始时间</label>
+                    <input type="date" class="form-control" id="start" name="start" value="2019-01-01" classTime="start" ng-model="start">
+                </div>
+                <div class="form-group">
+                    <label for="end">选择结束时间</label>
+                    <input type="date" class="form-control" id="end" name="end" value="2019-12-01" ng-model="end">
+                </div>
+                <br>
+                <button type="submit" class="btn btn-default btn-block">提交</button>
+            </form>
+
+            <iframe name="form" id="form" style="display:none"></iframe>
+        </div>
+        <div class="col-md-4 column">
+        </div>
+    </div>
+</div>
+
+<script>
+    $("#form").on('load',function () {
+        alert("课程创建成功,等待管理员审核！")
+        window.parent.location.href = "/teacher/CreateFrame";
+    });
+
+</script>
+
+
+<script>
+    var app = angular.module('myApp', []);
+    app.controller('myCtrl', function($scope) {
+        $.ajax({
+            async: false,
+            type: "GET",
+            url: "/teacher/getCourseByCid",
+            dataType : 'json',
+            success : function(data){
+                console.log(data);
+                $scope.name = data.courseName;
+                $scope.des = data.courseDes;
+                $scope.num = data.number;
+                $scope.classTime = data.classTime;
+                var start = data.start;
+                var end = data.end;
+                start.replace("-","/");
+                end.replace("-","/");
+                var s = new Date(start);
+                var e = new Date(end);
+                $scope.start = s;
+                $scope.end = e;
+
+            }
+        })
+
+
+    });
+</script>
+
+</body>
+</html>

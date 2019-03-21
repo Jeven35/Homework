@@ -27,6 +27,8 @@ public class StudentHomeworkRecord {
 
     private String email;
 
+    private int fid;
+
     // 老师布置的作业名(加后缀)
     private String homeworkName;
 

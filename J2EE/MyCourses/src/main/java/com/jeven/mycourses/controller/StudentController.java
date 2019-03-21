@@ -1,9 +1,11 @@
 package com.jeven.mycourses.controller;
 
 import com.jeven.mycourses.domain.Course;
+import com.jeven.mycourses.domain.File;
 import com.jeven.mycourses.domain.StudentHomeworkRecord;
 import com.jeven.mycourses.domain.StudentOfCourse;
 import com.jeven.mycourses.service.CourseService;
+import com.jeven.mycourses.service.FileService;
 import com.jeven.mycourses.service.HomeworkService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -25,9 +27,22 @@ public class StudentController {
     @Autowired
     private HomeworkService homeworkService;
 
+    @Autowired
+    private FileService fileService;
+
+    @RequestMapping(value = "/toGrade")
+    public String toGrade(){
+        return "/student/grade";
+    }
+
     @RequestMapping(value = "/toAllCourse")
     public String toAllCourse(){
         return "/student/allCourse";
+    }
+
+    @RequestMapping(value = "/toFinishCourseFrame")
+    public String toFinishCourseFrame(){
+        return "/student/finishedCourseFrame";
     }
 
     @RequestMapping(value = "/toClassFrame")
@@ -72,11 +87,17 @@ public class StudentController {
         return courseService.getCoursesByTime(nowTime);
     }
 
+
+    /**
+     * 学生选课
+     * @param request
+     * @return
+     */
     @ResponseBody
     @RequestMapping(value = "judgeJoin",method = RequestMethod.POST)
     public Map judgeJoin(HttpServletRequest request){
         int CourseID = Integer.parseInt(request.getParameter("cid"));
-        Course course = courseService.getCourse(CourseID);
+        Course course = courseService.getCourse(CourseID).get();
         Map map = new HashMap();
         if (course.getChosen()+1>course.getNumber()){
             map.put("state",false);
@@ -95,6 +116,24 @@ public class StudentController {
              courseService.saveStudentOfCourse(studentOfCourse);
              course.setChosen(course.getChosen()+1);
              courseService.saveCourese(course);
+
+             List<File> files = fileService.getFilesByCidAndType(CourseID,2);
+             int size = files.size();
+             for (int i=0;i<size;i++){
+                 File temp = files.get(i);
+                 StudentHomeworkRecord studentHomeworkRecord = new StudentHomeworkRecord();
+                 studentHomeworkRecord.setState("未提交");
+                 studentHomeworkRecord.setFullName("");
+                 String str = temp.getFileName();
+                 String[] strs = str.split("\\.");
+                 String homeworkName = temp.getReName()+"."+strs[1];
+                 studentHomeworkRecord.setHomeworkName(homeworkName);
+                 studentHomeworkRecord.setDdl(java.sql.Date.valueOf(temp.getDdl()));
+                 studentHomeworkRecord.setEmail(email);
+                 studentHomeworkRecord.setCourseID(CourseID);
+                 studentHomeworkRecord.setFid(temp.getFid());
+                 homeworkService.saveRecord(studentHomeworkRecord);
+             }
              return map;
         }
         else{
@@ -152,7 +191,7 @@ public class StudentController {
     public Map drop(HttpServletRequest request){
         String email = request.getSession().getAttribute("UserEmail").toString();
         int cid = Integer.parseInt(request.getParameter("cid"));
-        Course course = courseService.getCourse(cid);
+        Course course = courseService.getCourse(cid).get();
         course.setChosen(course.getChosen()-1);
         courseService.saveCourese(course);
         List<StudentOfCourse> studentOfCourse = courseService.findByCourseIDAndAndEmail(cid,email);
@@ -187,18 +226,20 @@ public class StudentController {
     public String saveRecord(@RequestParam(value = "courseID") int cid,@RequestParam(value = "homeworkName") String homeworkName,
                              @RequestParam(value = "fullName") String fullName,@RequestParam(value = "email") String email,
                              @RequestParam(value = "state") String state,@RequestParam(value = "ddl") java.sql.Date ddl,
-                             @RequestParam(value = "id") int id){
-        StudentHomeworkRecord studentHomeworkRecord = new StudentHomeworkRecord(id,email,homeworkName,cid,state,fullName,ddl);
+                             @RequestParam(value = "id") int id,@RequestParam(value = "fid") int fid){
+        StudentHomeworkRecord studentHomeworkRecord = new StudentHomeworkRecord(id,email,fid,homeworkName,cid,state,fullName,ddl);
         homeworkService.saveRecord(studentHomeworkRecord);
         return "保存成功";
 
     }
 
 
+    // 布置作业
     @ResponseBody
     @RequestMapping(value = "/ArrangementHomework")
     public Boolean ArrangementHomework(HttpServletRequest request){
         int cid = Integer.parseInt(request.getParameter("cid"));
+        int fid = Integer.parseInt(request.getParameter("fid"));
         String homeworkName = request.getParameter("homeworkName");
         List<String> students = courseService.getAllStudentByCid(cid);
         java.sql.Date date = java.sql.Date.valueOf(request.getParameter("ddl"));
@@ -211,8 +252,18 @@ public class StudentController {
             studentHomeworkRecord.setHomeworkName(homeworkName);
             studentHomeworkRecord.setState("未提交");
             studentHomeworkRecord.setFullName(" ");
+            studentHomeworkRecord.setFid(fid);
             homeworkService.saveRecord(studentHomeworkRecord);
         }
         return true;
+    }
+
+
+    @ResponseBody
+    @RequestMapping(value = "/getStudentsForWork",method = RequestMethod.POST)
+    public List<StudentHomeworkRecord> getStudentsForWork(HttpServletRequest request){
+        int hid = Integer.parseInt(request.getParameter("hid"));
+        return homeworkService.getRecordsByfiD(hid);
+
     }
 }

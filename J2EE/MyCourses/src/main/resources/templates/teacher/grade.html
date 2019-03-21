@@ -2,7 +2,7 @@
 <html lang="en" ng-app="myApp" ng-controller="myCtrl" xmlns:th="http://www.w3.org/1999/xhtml">
 <head>
     <meta charset="UTF-8">
-    <title>作业信息</title>
+    <title>成绩信息</title>
     <div th:replace="tool/common::commonHeader"></div>
     <script src="/js/upload.js"></script>
     <script src="/js/aliyun-oss-sdk.min.js"></script>
@@ -25,19 +25,15 @@
 </script>
 <body>
 <div class="container" >
-    <h3>作业</h3>
+    <h3>成绩</h3>
     <hr>
     <div class="card">
         <div class="card-header">
-            <h4 class="card-title">已传作业</h4>
+            <h4 class="card-title">历史成绩</h4>
         </div>
         <div class="card-body" ng-repeat="file in files" >
-            <button type="button" class="btn btn-link" ng-click="download($index)">{{file.reName}}</button>
-            <br>
-            <p class="text-info font-weight-bold">截止日期是：{{file.ddl}}</p>
-            <span>下载所有学生提交的作业：</span>
-            <button type="button" class="btn btn-link" ng-click="downloadAll($index)">点击下载</button>
-
+            <span>{{file.reName}}:</span>
+            <button type="button" class="btn btn-link" ng-click="download($index)">{{file.fileName}}</button>
             <hr>
         </div>
     </div>
@@ -45,19 +41,27 @@
     <br>
     <div class="card">
         <div class="card-header">
-            <h4 class="card-title">上传作业</h4>
+            <h4 class="card-title">上传新的考试成绩</h4>
         </div>
         <div class="card-body mt-3">
             <div class="form-group">
-                <label>选择文件</label>
+                <label>选择成绩表(excel)</label>
                 <input type="file" id="file"/>
             </div>
             <div class="form-group">
-                <label for="ddl">选择截止日期</label>
-                <input type="date" class="form-control" id="ddl" name="ddl" value="2019-01-01" style="width:500px;">
-            </div>
+                <label>选择发布类型</label>
+                <div class="radio">
+                    <label>
+                        <input type="radio" name="optionsRadios" id="optionsRadios1" value="option1" checked> 私密发布
+                    </label>
+                </div>
+                <div class="radio">
+                    <label>
+                        <input type="radio" name="optionsRadios" id="optionsRadios2" value="option2">公开发布
+                    </label>
+                </div>            </div>
             <div class="input-group mb-3">
-                <input type="text" class="form-control" placeholder="请输入作业名" style="width:500px;" id="filename">
+                <input type="text" class="form-control" placeholder="请输入考试名" style="width:500px;" id="filename">
                 <button class="btn btn-success" type="submit" id="upload">&nbsp;&nbsp;上传&nbsp;&nbsp;</button>
             </div>
             <div style="width: 570px">
@@ -80,14 +84,13 @@
 <script>
     var app = angular.module('myApp', []);
     app.controller('myCtrl', function($scope) {
-        console.log(CourseID);
         var data = {
             courseID: CourseID
         };
         $.ajax({
             async: false,
             type: "POST",
-            url: "/teacher/getHomeworkByCid",
+            url: "/teacher/getGrades",
             data: data,
             dataType : 'json',
             success: function (data) {
@@ -96,44 +99,13 @@
 
                 $scope.download = function (index) {
                     var suffix = data[index].fileName.substr(data[index].fileName.lastIndexOf(".")).toLowerCase();
-                    var uploadName = CourseID+"/homework/"+data[index].reName+suffix;
+                    var uploadName = CourseID+"/grade/"+data[index].reName+suffix;
                     var downloadName = data[index].reName+suffix;
                     setUploadName(uploadName);
                     setDownloadName(downloadName);
                     applyTokenDo(downloadFile);
                 };
-                
-                $scope.downloadAll = function (index) {
-                    var fid = $scope.files[index].fid;
-                    var data = {
-                        hid: fid
-                    };
-                    $.ajax({
-                        async:false,
-                        type:"POST",
-                        url:"/student/getStudentsForWork",
-                        data:data,
-                        dataType:'json',
-                        success: function (data) {
-                            console.log(data);
-                            if (data == null || data.length == 0){
-                                alert("暂无学生提交作业。。。");
-                                return;
-                            }
-                            var len = data.length;
-                            for (var i=0;i<len;i++){
-                                homeworkName = data[i].homeworkName;
-                                var homework = homeworkName.split(".")[0];
-                                var uploadName = "student/"+data[i].email+ "/"+CourseID+"/"+"homework/"+ homework + "/"+ data[i].fullName;
-                                var downloadName = data[i].email.split("@")[0]+"."+data[i].fullName.split(".")[1];
-                                setUploadName(uploadName);
-                                setDownloadName(downloadName);
-                                applyTokenDo(downloadFile);
-                            }
-                        }
-                        
-                    })
-                }
+
             }
         })
     });
@@ -151,16 +123,14 @@
         var fileName = file.name;
         var reName = document.getElementById('filename').value.trim() || 'object';
         var suffix = fileName.substr(fileName.lastIndexOf(".")).toLowerCase(); //获得文件后缀名
-        var uploadName = CourseID+"/homework/"+reName+suffix;
+        var uploadName = CourseID+"/grade/"+reName+suffix;
         setUploadName(uploadName);
         var data = {
             cid: CourseID,
             fileName: fileName,
             reName: reName,
-            type: 2,
-            ddl:document.getElementById('ddl').value
+            type: 3
         };
-        var fid = "";
         $.ajax({
             async: false,
             type: "POST",
@@ -169,23 +139,6 @@
             data: data,
             success: function (data) {
                 console.log(data.id);
-                fid = data.id;
-            }
-        });
-        var data2 = {
-            fid:fid,
-            cid:CourseID,
-            homeworkName: reName+suffix,
-            ddl:document.getElementById('ddl').value
-        };
-        $.ajax({
-            async: false,
-            type: "POST",
-            url: "/student/ArrangementHomework",
-            dataType : 'json',
-            data: data2,
-            success: function (data) {
-                console.log(data);
             }
         });
         applyTokenDo(uploadFile);

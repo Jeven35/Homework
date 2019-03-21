@@ -49,7 +49,7 @@ public class SendEmail {
         return session;
     }
 
-    public static void send(String toEmail , String content) {
+    public static void send(String toEmail , String content,String title) {
         Session session = getSession();
         try {
             System.out.println("--send--"+content);
@@ -60,7 +60,7 @@ public class SendEmail {
             msg.setFrom(new InternetAddress(FROM));
             InternetAddress[] address = {new InternetAddress(toEmail)};
             msg.setRecipients(Message.RecipientType.TO, address);
-            msg.setSubject("账号激活邮件");
+            msg.setSubject(title);
             msg.setSentDate(new Date());
             msg.setContent(content , "text/html;charset=utf-8");
 
