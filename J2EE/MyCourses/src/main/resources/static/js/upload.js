@@ -1,10 +1,22 @@
-var CourseID,fileName,reName;
+var uploadName,downloadName;
 
-var set = function (var1,var2,var3) {
-    CourseID = var1;
-    fileName = var2;
-    reName = var3;
+
+function sayhello(){
+    alert("baocuo");
+}
+sayHello = function () {
+    alert("hello");
 };
+
+// 设置上传时的名字
+setUploadName = function (var1) {
+    uploadName = var1;
+};
+// 设置下载时的名字
+setDownloadName = function (var1) {
+    downloadName = var1;
+};
+
 // 传入一个方法 用来调用接口
 var applyTokenDo = function(func) {
     $.ajax({
@@ -47,28 +59,7 @@ var progress = function(p, checkpoint)  {
 //上传文件
 var uploadFile = function(client) {
     var file = document.getElementById('file').files[0];
-    if(document.getElementById('filename').value == null || document.getElementById('filename').value.trim().length == 0) {
-        alert("文件名不能为空");
-        return;
-    }
-    var fileName = document.getElementById('filename').value.trim() || 'object';
-    if(document.getElementById('file').files.length == 0) {
-        alert("请选择文件！");
-        return;
-    }
-    var suffix = file.name.substr(file.name.lastIndexOf(".")).toLowerCase(); //获得文件后缀名
-    console.log(suffix);
-    var CourseID = "";
-    $.ajax({
-        async: false,
-        type: "GET",
-        url: "/teacher/getCourseID",
-        success: function (data) {
-            CourseID = data;
-        }
-    });
-    fileName = CourseID+"/"+fileName+suffix;
-    return client.multipartUpload(fileName, file, {
+    return client.multipartUpload(uploadName, file, {
         progress: progress,
         checkpoint: tempCheckPoint,
         parallel: 100,
@@ -82,16 +73,10 @@ var uploadFile = function(client) {
 
 //下载文件
 var downloadFile = function(client) {
-    console.log(fileName,CourseID,reName);
-    var suffix = fileName.substr(fileName.lastIndexOf(".")).toLowerCase();
 
-    var object = CourseID + "/"+reName+suffix;
-	var filename = reName+suffix;
-	console.log(filename);
-
-	var result = client.signatureUrl(object, {
+	var result = client.signatureUrl(uploadName, {
 		response: {
-			'content-disposition': 'attachment; filename="' + filename + '"'
+			'content-disposition': 'attachment; filename="' + downloadName + '"'
 		}
 	});
 	window.location = result;

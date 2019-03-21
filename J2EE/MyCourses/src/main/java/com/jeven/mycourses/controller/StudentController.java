@@ -1,13 +1,13 @@
 package com.jeven.mycourses.controller;
 
 import com.jeven.mycourses.domain.Course;
+import com.jeven.mycourses.domain.StudentHomeworkRecord;
 import com.jeven.mycourses.domain.StudentOfCourse;
 import com.jeven.mycourses.service.CourseService;
+import com.jeven.mycourses.service.HomeworkService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestMethod;
-import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.web.bind.annotation.*;
 
 import javax.servlet.http.HttpServletRequest;
 import java.util.*;
@@ -21,6 +21,9 @@ public class StudentController {
 
     @Autowired
     private CourseService courseService;
+
+    @Autowired
+    private HomeworkService homeworkService;
 
     @RequestMapping(value = "/toAllCourse")
     public String toAllCourse(){
@@ -162,5 +165,38 @@ public class StudentController {
     }
 
 
+    /**
+     * 返回学生这门课程的作业记录
+     * @param request
+     * @return
+     */
+    @ResponseBody
+    @RequestMapping(value = "/getHomeworkRecords",method = RequestMethod.POST)
+    public List<StudentHomeworkRecord> getHomeworkRecords(HttpServletRequest request){
+        String email = request.getSession().getAttribute("UserEmail").toString();
+        int courseID = Integer.parseInt(request.getSession().getAttribute("CourseID").toString());
+        return homeworkService.getRecordsByEmailAndCourse(email,courseID);
+    }
 
+
+//    /**
+//     * 保存学生提交记录
+//     */
+//    @ResponseBody
+//    @RequestMapping(value = "saveRecord",method = RequestMethod.POST)
+//    public String saveRecord(@RequestParam(value = "cid") int cid,@RequestParam(value = "homeworkName") String homeworkName,
+//                             @RequestParam(value = "fullName") String fullName,@RequestParam(value = "email") String email,
+//                             @RequestParam(value = "state") String state,@RequestParam(value = "ddl") java.sql.Date ddl ){
+//
+//
+//    }
+    /**
+     * 保存学生提交记录
+     */
+    @ResponseBody
+    @RequestMapping(value = "saveRecord",method = RequestMethod.POST)
+    public Boolean saveRecord(@RequestBody StudentHomeworkRecord studentHomeworkRecord){
+        homeworkService.saveRecord(studentHomeworkRecord);
+        return true;
+    }
 }

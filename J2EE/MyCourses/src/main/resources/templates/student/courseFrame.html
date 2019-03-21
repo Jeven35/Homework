@@ -56,16 +56,16 @@
 
 <nav class="navbar navbar-vertical-left" style="min-width: 160px ">
     <ul class="nav navbar-nav" style="margin-top:25px ;">
-        <li onclick="jumpIframe('/student/toAllCourse')">
-            <a href>
-                <i class="fa fa-fw fa-lg fa-desktop"></i>
-                <span>所有课程</span>
-            </a>
-        </li>
         <li onclick="jumpIframe('/student/toMyCourse')">
             <a href>
                 <i class="fa fa-fw fa-lg fa-desktop"></i>
                 <span>我的课程</span>
+            </a>
+        </li>
+        <li onclick="jumpIframe('/student/toAllCourse')">
+            <a href>
+                <i class="fa fa-fw fa-lg fa-desktop"></i>
+                <span>所有课程</span>
             </a>
         </li>
 
@@ -76,7 +76,7 @@
 
 <div class="mainDiv">
 
-    <iframe class="CenterPagIframe" src="/student/toAllCourse" width=100% id="iframepage" name="iframepage" frameBorder=0 onLoad="loadIframe()"></iframe>
+    <iframe class="CenterPagIframe" src="/student/toMyCourse" width=100% id="iframepage" name="iframepage" frameBorder=0 onLoad="loadIframe()"></iframe>
 
     <div id="loading">
         <div class="spinner">

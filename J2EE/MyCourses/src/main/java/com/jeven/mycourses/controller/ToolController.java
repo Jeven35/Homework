@@ -127,4 +127,11 @@ public class ToolController {
 
         return ossService.getSTS();
     }
+
+    @ResponseBody
+    @RequestMapping(value = "/getUserEmail",method = RequestMethod.POST)
+    public String getUserEmail(HttpServletRequest request){
+        String email = request.getSession().getAttribute("UserEmail").toString();
+        return email;
+    }
 }
