@@ -44,6 +44,15 @@ public class TeacherController {
      * 返回教师信息页面
      * @return
      */
+    @RequestMapping(value = "toCharts")
+    public String toCharts(){
+        return "teacher/charts";
+    }
+
+    /**
+     * 返回教师信息页面
+     * @return
+     */
     @RequestMapping(value = "InfoPage")
     public String InfoPage(){
         return "teacher/info";

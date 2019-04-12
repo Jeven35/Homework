@@ -35,6 +35,10 @@ public class StudentController {
         return "/student/grade";
     }
 
+    @RequestMapping(value = "/toCharts")
+    public String toCharts(){
+        return "/student/charts";
+    }
     @RequestMapping(value = "/toAllCourse")
     public String toAllCourse(){
         return "/student/allCourse";

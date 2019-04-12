@@ -1,10 +1,94 @@
 <!DOCTYPE html>
-<html lang="en">
+<html ng-app="myApp">
+
 <head>
+    <title>管理中心</title>
+
     <meta charset="UTF-8">
-    <title>Title</title>
+
+    <div th:replace="tool/common::commonHeader"></div>
+
+
+    <style>
+        html {
+            background-color: white;
+            overflow-x: hidden;
+            overflow-y: hidden
+        }
+
+        linkTxt {
+            display: none;
+        }
+
+        body {
+            background-color: white;
+        }
+
+        .CenterPagIframe {
+            background-color: #DCDCDC;
+            border: solid;
+            border-color: blue;
+            border-width: 12px;
+            position: absolute;
+            left: 60px;
+            top: 50px;
+            border: none;
+        }
+
+        .mainDiv {
+            margin: 0;
+            padding: 0;
+            margin-top: 60px;
+            margin-left: 70px;
+            background-color: white;
+            width: auto;
+            min-width: 1000px;
+            min-width: 840px;
+            height: auto;
+            min-height: 700px;
+            text-align: center;
+            color: #000000;
+        }
+    </style>
 </head>
+<div style="position: fixed; left: 0;top: 0;z-index:900;min-width:1000px;max-width:1900px;width: 100%;">
+    <div ng-include="'/nav-admin'" style=""></div>
+</div>
+
+<nav class="navbar navbar-vertical-left" style="min-width: 160px ">
+    <ul class="nav navbar-nav" style="margin-top:50px ;">
+        <li onclick="jumpIframe('/admin/toCharts')">
+            <a href>
+                <i class="fa fa-fw fa-lg fa-home"></i>
+                <span>统计图表</span>
+            </a>
+        </li>
+
+    </ul>
+</nav>
+
 <body>
 
+<div class="mainDiv">
+
+    <iframe class="CenterPagIframe" src="/admin/toCharts" width=100% id="iframepage" name="iframepage" frameBorder=0 onLoad="loadIframe()"></iframe>
+
+    <div id="loading">
+        <div class="spinner">
+            <div class="rect1"></div>
+            <div class="rect2"></div>
+        </div>
+    </div>
+
+</div>
+
 </body>
+
+<script>
+    var app = angular.module('myApp', []);
+    app.controller('myCtrl', function($scope) {
+
+    });
+</script>
+
 </html>

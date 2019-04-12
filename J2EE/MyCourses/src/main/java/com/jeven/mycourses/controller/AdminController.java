@@ -23,6 +23,11 @@ public class AdminController {
     @Autowired
     private CourseService courseService;
 
+    @RequestMapping(value = "/toCharts")
+    public String toCharts(){
+        return "/admin/charts";
+    }
+
     @RequestMapping(value = "/toCheckFrame")
     public String toCheckFrame(){
         return "/admin/checkFrame";
