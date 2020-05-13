@@ -1,0 +1,17 @@
+PWD e:/Homework/NodeAV
+INPUT c:/texlive/2020/texmf.cnf
+INPUT c:/texlive/2020/texmf-dist/web2c/texmf.cnf
+INPUT c:/texlive/2020/texmf-var/web2c/pdftex/latex.fmt
+INPUT e:/Homework/NodeAV/homework.tex
+OUTPUT homework.log
+INPUT c:/texlive/2020/texmf-dist/tex/latex/base/article.cls
+INPUT c:/texlive/2020/texmf-dist/tex/latex/base/article.cls
+INPUT c:/texlive/2020/texmf-dist/tex/latex/base/size10.clo
+INPUT c:/texlive/2020/texmf-dist/tex/latex/base/size10.clo
+INPUT c:/texlive/2020/texmf-dist/tex/latex/l3backend/l3backend-dvips.def
+INPUT c:/texlive/2020/texmf-dist/tex/latex/l3backend/l3backend-dvips.def
+INPUT homework.aux
+INPUT homework.aux
+OUTPUT homework.aux
+OUTPUT homework.dvi
+INPUT homework.aux

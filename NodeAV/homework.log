@@ -1,0 +1,62 @@
+This is pdfTeX, Version 3.14159265-2.6-1.40.21 (TeX Live 2020/W32TeX) (preloaded format=latex 2020.4.27)  11 MAY 2020 12:59
+entering extended mode
+ restricted \write18 enabled.
+ %&-line parsing enabled.
+**e:/Homework/NodeAV/homework.tex
+(e:/Homework/NodeAV/homework.tex
+LaTeX2e <2020-02-02> patch level 5
+L3 programming layer <2020-03-06> (c:/texlive/2020/texmf-dist/tex/latex/base/article.cls
+Document Class: article 2019/12/20 v1.4l Standard LaTeX document class
+(c:/texlive/2020/texmf-dist/tex/latex/base/size10.clo
+File: size10.clo 2019/12/20 v1.4l Standard LaTeX file (size option)
+)
+\c@part=\count167
+\c@section=\count168
+\c@subsection=\count169
+\c@subsubsection=\count170
+\c@paragraph=\count171
+\c@subparagraph=\count172
+\c@figure=\count173
+\c@table=\count174
+\abovecaptionskip=\skip47
+\belowcaptionskip=\skip48
+\bibindent=\dimen134
+) (c:/texlive/2020/texmf-dist/tex/latex/l3backend/l3backend-dvips.def
+File: l3backend-dvips.def 2020-03-12 L3 backend support: dvips
+\l__pdf_internal_box=\box45
+\g__pdf_backend_object_int=\count175
+\l__pdf_backend_content_box=\box46
+\l__pdf_backend_model_box=\box47
+\g__pdf_backend_annotation_int=\count176
+\g__pdf_backend_link_int=\count177
+\g__pdf_backend_link_sf_int=\count178
+) (./homework.aux)
+\openout1 = `homework.aux'.
+
+LaTeX Font Info:    Checking defaults for OML/cmm/m/it on input line 2.
+LaTeX Font Info:    ... okay on input line 2.
+LaTeX Font Info:    Checking defaults for OMS/cmsy/m/n on input line 2.
+LaTeX Font Info:    ... okay on input line 2.
+LaTeX Font Info:    Checking defaults for OT1/cmr/m/n on input line 2.
+LaTeX Font Info:    ... okay on input line 2.
+LaTeX Font Info:    Checking defaults for T1/cmr/m/n on input line 2.
+LaTeX Font Info:    ... okay on input line 2.
+LaTeX Font Info:    Checking defaults for TS1/cmr/m/n on input line 2.
+LaTeX Font Info:    ... okay on input line 2.
+LaTeX Font Info:    Checking defaults for OMX/cmex/m/n on input line 2.
+LaTeX Font Info:    ... okay on input line 2.
+LaTeX Font Info:    Checking defaults for U/cmr/m/n on input line 2.
+LaTeX Font Info:    ... okay on input line 2.
+ [1
+
+] (./homework.aux) ) 
+Here is how much of TeX's memory you used:
+ 361 strings out of 480609
+ 6282 string characters out of 5907562
+ 239601 words of memory out of 5000000
+ 16336 multiletter control sequences out of 15000+600000
+ 532338 words of font info for 24 fonts, out of 8000000 for 9000
+ 1141 hyphenation exceptions out of 8191
+ 25i,4n,19p,162b,97s stack positions out of 5000i,500n,10000p,200000b,80000s
+
+Output written on homework.dvi (1 page, 260 bytes).

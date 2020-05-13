@@ -1,79 +1,175 @@
 <!DOCTYPE html>
-<html xmlns:th="http://www.thymeleaf.org">
+<html lang="en" xmlns:th="http://www.thymeleaf.org" xmlns:http="http://www.w3.org/1999/xhtml">
 <head>
-    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
-    <meta name="description" content="此代码内容为登录界面" />
-    <title>登录</title>
-    <script src="../../static/js/jquery.min.js" th:src="@{/js/jquery.min.js}"></script>
-    <link rel="icon" type="image/x-icon" href="/img/icon.jpg">
-    <link rel="stylesheet" href="../../static/css/jq22.css" th:href="@{/css/jq22.css}"  />
+    <meta charset="UTF-8">
+    <title>麻衣三十五 | 登录</title>
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="format-detection" content="telephone=no">
+    <meta name="renderer" content="webkit">
+    <meta http-equiv="Cache-Control" content="no-siteapp" />
+    <link rel="stylesheet" th:href="@{/css/jq22.css}"  />
+
+
+    <link rel="icon" type="image/x-icon" href="https://vediodemo.oss-cn-hangzhou.aliyuncs.com/myblog/static/me.jpg?x-oss-process=style/rule1">
+    <link href="https://lib.baomitu.com/amazeui/2.7.2/css/amazeui.min.css" rel="stylesheet">
+    <link href="https://lib.baomitu.com/font-awesome/5.8.0/css/fontawesome.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="css/all.css">
+
+    <script src="https://lib.baomitu.com/jquery/3.3.1/jquery.min.js"></script>
+    <script src="https://lib.baomitu.com/amazeui/2.7.2/js/amazeui.min.js"></script>
 </head>
 <body>
-<!-- begin -->
-<div id="login">
-    <div class="wrapper">
-        <div class="login">
-            <form action="#" method="post" class="container offset1 loginform">
-                <div id="owl-login">
-                    <div class="hand"></div>
-                    <div class="hand hand-r"></div>
-                    <div class="arms">
-                        <div class="arm"></div>
-                        <div class="arm arm-r"></div>
-                    </div>
-                </div>
-                <div class="pad">
-                    <input type="hidden" name="_csrf" value="9IAtUxV2CatyxHiK2LxzOsT6wtBE6h8BpzOmk="/>
-                    <div class="control-group">
-                        <div class="controls">
-                            <label for="email" class="control-label fa fa-envelope"></label>
-                            <input id="email" type="text" name="email" placeholder="Email" tabindex="1" autofocus="autofocus" class="form-control input-medium" />
+<div id="app">
+    <!--引入共有头部-->
+    <div th:replace="header :: header"></div>
+    <!--页面主体-->
+    <div >
+        <div id="login">
+            <div class="wrapper">
+                <div class="login">
+                    <div  class="container offset1 loginform">
+                        <div id="owl-login">
+                            <div class="hand"></div>
+                            <div class="hand hand-r"></div>
+                            <div class="arms">
+                                <div class="arm"></div>
+                                <div class="arm arm-r"></div>
+                            </div>
                         </div>
-                    </div>
-                    <div class="control-group">
-                        <div class="controls">
-                            <label for="password" class="control-label fa fa-asterisk"></label>
-                            <input id="password" type="password" name="password" placeholder="Password" tabindex="2" class="form-control input-medium" />
-                        </div>
-                    </div>
-                </div>
-                <div class="form-actions"><a href="#" tabindex="5" class="btn pull-left btn-link text-muted">Forgot password?</a><a href="/toRegister" tabindex="6" class="btn btn-link text-muted">Sign Up</a>
-                    <button type="button" id="doLogin" tabindex="4" class="btn btn-primary">Login</button>
-                </div>
-            </form>
-        </div>
-    </div>
-    <script>
-        $(function() {
-            $('#login #password').focus(function() {
-                $('#owl-login').addClass('password');
-            }).blur(function() {
-                $('#owl-login').removeClass('password');
-            });
+                        <div class="pad">
+                            <input type="hidden" name="_csrf" value="9IAtUxV2CatyxHiK2LxzOsT6wtBE6h8BpzOmk="/>
+                            <div class="control-group">
+                                <div class="controls">
+                                    <label for="phone" class="control-label fa fa-envelope"></label>
+                                    <input id="phone" type="text" name="phone" placeholder="telphone" tabindex="1" autofocus="autofocus" class="form-control input-medium" />
+                                    <span id="phone_null" class="icons am-icon-warning" style="color: orange"></span>
+                                    <span id="phone_error" class="icons am-icon-times" style="color: red"></span>
+                                </div>
+                            </div>
+                            <div class="control-group">
+                                <div class="controls">
+                                    <label for="password" class="control-label fa fa-asterisk"></label>
+                                    <input id="password" type="password" name="password" placeholder="Password" tabindex="2" class="form-control input-medium" />
+                                    <span id="password_null" class="icons am-icon-warning" style="color: orange"></span>
 
-            //简单登录操作
-            $("#doLogin").click(function (e) {
-                // alert("你已经写好了登录界面！");
-                $.ajax({
-                    type : "POST",
-                    url : "/login",
-                    data : {
-                        "email" : $("#email").val(),
-                        "password" : $("#password").val()
-                    },
-                    dataType : "json",
-                    success : function(data) {
-                        if (data["status"] == "success")
-                            window.location = "/toCenter";
-                        else{
-                            alert(data["msg"]);
-                        }
+                                </div>
+                            </div>
+                        </div>
+                        <div class="form-actions">
+                            <a tabindex="5" class="btn pull-left btn-link text-muted" data-am-modal="{target: '#my-alert'}">Forgot password?</a>
+                            <a href="/register" tabindex="6" class="btn btn-link text-muted">Sign Up</a>
+                            <button type="button" id="doLogin" tabindex="4" class="btn btn-primary">Login</button>
+                        </div>
+                    </div>
+                    <!-- 模态框（Modal） -->
+                    <div class="am-modal am-modal-alert" tabindex="-1" id="my-alert">
+                        <div class="am-modal-dialog" style="border-radius: 5px;">
+                            <div class="am-modal-hd" style="text-align: left;margin:auto auto 5px 20px">客官，在这里修改密码呦
+                                <a href="javascript: void(0)" class="am-close am-close-alt am-close-spin" data-am-modal-close style="margin: 7px 10px auto auto">&times;</a>
+                            </div>
+                            <div class="am-modal-bd">
+                                <form id="modal_form" class="am-form am-form-horizontal">
+                                    <div class="am-form-group">
+                                        <label for="modal_phone" class="am-u-sm-4 am-form-label">手机号</label>
+                                        <div class="am-u-sm-8 am-form-icon am-form-feedback">
+                                            <input class="modal_value" type="text" id="modal_phone" placeholder="输入要修改的手机号哦">
+                                            <span id="modal_phone_null" class="modal_icons am-icon-warning" style="color: orange"></span>
+                                            <span id="modal_phone_error" class="modal_icons am-icon-times" style="color: red"></span>
+                                        </div>
+                                    </div>
+                                    <div class="am-form-group">
+                                        <label for="auth_code" class="am-u-sm-4 am-form-label">验证码</label>
+                                        <div class="am-u-sm-4 am-form-icon am-form-feedback">
+                                            <input class="modal_value" type="text" id="auth_code" placeholder="点我右边那家伙获取验证码">
+                                            <span id="auth_code_null" class="modal_icons am-icon-warning" style="color: orange"></span>
+                                            <span id="auth_code_error" class="modal_icons am-icon-times" style="color: red"></span>
+                                        </div>
+                                        <div class="am-u-sm-4" style="padding-left:0">
+                                            <button type="button" id="msg_btn" class="am-btn am-btn-secondary am-round">获取验证码</button>
+                                        </div>
+                                    </div>
+
+                                    <div class="am-form-group">
+                                        <label for="new_password" class="am-u-sm-4 am-form-label">新密码</label>
+                                        <div class="am-u-sm-8 am-form-icon am-form-feedback">
+                                            <input class="modal_value" value="" type="password" id="new_password" placeholder="快来设置一个新密码吧">
+                                            <span id="new_password_null" class="modal_icons am-icon-warning" style="color: orange"></span>
+                                        </div>
+                                    </div>
+
+                                    <div class="am-form-group">
+                                        <label for="check_password" class="am-u-sm-4 am-form-label">确认密码</label>
+                                        <div class="am-u-sm-8 am-form-icon am-form-feedback">
+                                            <input class="modal_value" value="" type="password" id="check_password" placeholder=再次确认一下新密码哦">
+                                            <span id="modal_check_password_error" class="icons am-icon-times" style="color: red"></span>
+                                            <span id="check_password_null" class="modal_icons am-icon-warning" style="color: orange"></span>
+                                        </div>
+                                    </div>
+                                    <div class="phoneNotExit">
+                                        <span class="modal_icons phoneNotExitSpan">手机号不存在,修改密码失败！</span>
+                                    </div>
+                                </form>
+                            </div>
+                            <div class="am-modal-footer" style="text-align: right">
+                                <button type="button" id="change_password_cancel_btn" class="am-btn am-btn-default am-round" data-am-modal-close>取消</button>
+                                <button type="button" id="change_password_btn" class="am-btn am-btn-warning am-round">确认修改</button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <script>
+                $(function() {
+                    $('#login #password').focus(function() {
+                        $('#owl-login').addClass('password');
+                    }).blur(function() {
+                        $('#owl-login').removeClass('password');
+                    });
+
+                    //简单登录操作
+                    var submit = function(){
+                        alert("submit!!!");
+                        $.ajax({
+                            type : "POST",
+                            url : "/login",
+                            data : {
+                                "email" : $("#email").val(),
+                                "password" : $("#password").val()
+                            },
+                            dataType : "json",
+                            success : function(data) {
+                                alert("lalalala");
+                            }
+                        });
                     }
                 });
-            });
-        });
-    </script>
+
+                //简单登录操作
+                $("#doLogin").click(function (e) {
+                    alert("你已经写好了登录界面！");
+                    $.ajax({
+                        type : "POST",
+                        url : "/login",
+                        data : {
+                            "email" : $("#email").val(),
+                            "password" : $("#password").val()
+                        },
+                        dataType : "json",
+                        success : function(data) {
+                            if (data["status"] == "success")
+                                window.location = "/toCenter";
+                            else{
+                                alert(data["msg"]);
+                            }
+                        }
+                    });
+                });
+            </script>
+        </div>
+    </div>
 </div>
-<!-- end -->
+
+<script src="js/login.js"></script>
 </body>
 </html>
