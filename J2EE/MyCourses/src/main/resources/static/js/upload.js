@@ -2,8 +2,8 @@
 var applyTokenDo = function(func) {
     var client = new OSS({
         region: "oss-cn-hangzhou",
-        accessKeyId: "LTAIT9uPRUVswRb0",
-        accessKeySecret: "Li3tbj1my5zqmXAMaCAAzkqfqeCL1o",
+        accessKeyId: "************",
+        accessKeySecret: "*******************",
         bucket: "vediodemo"
     });
     return func(client);
